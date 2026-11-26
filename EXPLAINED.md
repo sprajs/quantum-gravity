@@ -166,6 +166,14 @@ $$\bar{u}_* \ge (1-\epsilon)\sqrt{\frac{\mathscr{A}}{4\pi}} \qquad \Longrightarr
 
 Think about what this means physically: **a single upper bound on the gravitational clock does two jobs at once.** It caps how large the equator's area can be, *and* it exponentially penalizes strong radial gravitational waves along the light cone.
 
+### Can two clocks affect each other at the same instant?
+
+Imagine using the same flash twice in your analysis. Start counting along each ray at one third of its final radius for the first reading and at one half for the second. Physicists use a *Poisson bracket* to describe how one reading changes under a small disturbance coupled to the other. On a flat diamond the first change in the excess travel distance vanishes. We can still ask how an incoming reference wave changes the clock's response to a second, weak wave. With one suitably shaped reference wave and a waist radius of one, the bracket of these two responses is $+3G_N/160$, where $G_N$ is Newton's constant. The result is the same whichever detector approaches the shared instant first. [One wave and two starting radii](audit/timing-caps.md)
+
+How long does each detector listen? Averaging each reading with a smooth timing window gives a definite bracket at every positive duration. In the flat wave experiment, if both detectors use the same timing window and shorten it together, the limiting bracket is the average of the answers obtained when either detector goes first. For two copies of a clock with the same cap the two orders can give opposite answers. Even if both windows have the same average trigger time and spread, they can favor one order. In the free quantum theory a meter can record both finite-duration responses. A nonzero bracket sets a lower bound on the noise an unbiased meter must add when it reads both channels with equal precision. [Clock timing](audit/timing.md) · [Quantum readout](audit/timing-readout.md)
+
+There is also an example using the distances the clocks measure along the light rays. Imagine a vacuum universe that expands differently along its three directions and wraps around in each one. Average each clock over the positions where the flash could be sent. A measured length around this universe picks the common midpoint of the two clocks. For sufficiently small diamonds the two cap readings have a positive bracket. Using the age inferred from curvature, or the total spatial volume, to pick that same instant gives zero. The choices agree on the instant in the starting universe, but a small disturbance moves that instant differently for each choice. [Two clocks on a Kasner torus](audit/timing-kasner.md)
+
 ### Worked Example 2: The 2D Warning (Why a Bounded Clock Is Not Enough)
 
 At this point, you might think: *"Aha! The clock bounds the size of the room and penalizes wavy radiation—surely that already forces only finitely many quantum states inside the diamond?"*

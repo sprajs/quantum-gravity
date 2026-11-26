@@ -637,9 +637,39 @@ The opposed packets of Figure~\ref{fig:rim-packets} probe a smoother reference w
 \note{Run \texttt{python3 -B checks/weak\_master.py} in the repository root. The last two lines give the packet limits $-1/30$ and $-3/4$. Run \texttt{make check} for the full suite.}
 
 \clearpage
+\subsection{When are two clock readings simultaneous?}
+\label{subsec:timing}
+Classically, both clock readings exist simultaneously on any regular spacetime; their Poisson bracket measures mutual gravitational sensitivity rather than measurement error. On the unit flat diamond, $dD_{\rm flat}=0$, so we track the linear responses $L_i(t)=d^2D_{\rm flat}(W_i,\cdot)$ as the freely falling emitter's proper time $t$ translates the whole experiment (tips, cap marks, and incident wave $W_i$). Each detector reports a weighted average of readings over a short proper-time window.
+
+\textbf{Which launch comes first?} Let $B_+$ and $B_-$ be the limiting classical brackets as the second launch approaches the first from later and earlier times, respectively. By bilinearity, the bracket of two averaged readings weights every pair of launch times by the product of the two timing windows. As both windows narrow around one instant, if the fraction of product weight with the second launch later tends to $p$, the limiting bracket is
+\[
+ (1-p)B_-+pB_+ .
+\]
+For identical continuous proper-time windows, swapping the two integration times leaves their product weight unchanged, so $p=1/2$ and the bracket selects the midpoint $(B_-+B_+)/2$---even for an asymmetric window (\repo{audit/timing-midpoint.md}{timing derivation}).
+
+\begin{center}
+ \captionsetup{type=figure}
+ \includegraphics[width=0.96\linewidth]{../figures/clock-timing.png}
+ \caption{At cap fraction $1/3$, prepare two quadrupole waves with optical strain slopes $s^4B$ and $s^5B$ in the polarization $B$ of Section~\ref{subsec:weak-shell}. The left panel weights each reading with a Gaussian of width $\sigma$ (shown at offset $\Delta=2\sigma$, matching the open circle on the right). The right panel shrinks both widths and $\Delta$ at fixed $\Delta/\sigma$: the dashed limits correspond to the $s^5$ launch earlier and later, and the filled point gives the midpoint for identical timing.}
+ \label{fig:clock-timing}
+\end{center}
+
+For these two waves, both ordered limits are positive, with midpoint $8126G_N/48715425$ in the order $s^4,s^5$; exchanging the wave labels flips its sign. Repeating a \emph{single} wave behaves differently: with unit rim slope and vanishing vertex jump, the two limits are $-G_N/30$ and $+G_N/30$, giving a zero midpoint (\repo{audit/timing-two-clocks.md}{two-wave calculation}, \repo{audit/weak-clock-contact.md}{repeated wave}).
+
+\textbf{How to match real timing windows.} Measure each channel's normalized, nonnegative impulse response $r_i(u)$ on past lags $u\geq0$. Filtering channel 1's output with $r_2$ and channel 2's with $r_1$ gives both channels the identical causal window $r_1*r_2=r_2*r_1$ at the same reporting time (where $*$ denotes convolution), yielding $p=1/2$ as both durations shrink (\repo{audit/timing.md}{measurement protocol}).
+
+\textbf{Two cap fractions on one wave.} Take inner fraction $a=1/3$, outer fraction $b=1/2$, and scalar strain slope $p(s)=(152s^4-208s^5)/3$ between the inner cap and waist, giving $p(b)=1$ and cancelling the outer reading's vertex jump. With no shared jumps, both time orders coincide. Above $b$ the two responses match identically, and below $b$ the outer derivative is orthogonal to their difference; subtracting the zero self-bracket leaves only the outer rim jump $d_b=-16G_N(1-b)p(b)$, yielding $\frac{3G_N}{40}(1-b)^2p(b)^2=+3G_N/160$ in the order $(a,b)$ for every shrinking pair of windows (\repo{audit/timing-caps.md}{two-cap calculation}).
+
+With the same caps and the same order, a second wave profile gives $-3G_N/160$. The sign distinguishes the radial shapes of the two waves.
+
+\note{Run \texttt{python3 -B checks/timing\_two\_clocks.py} and \texttt{python3 -B checks/timing\_caps.py} from the repository root. They print the midpoint $8126/48715425$ and the two-cap value $3/160$, respectively, in units of $G_N$.}
+
+\clearpage
 \subsection{What the new calculations settle}
 
-A second reading raises a timing question. In the unit-radius quadrupole example, repeat the whole experiment a short time later, moving the reference wave along with the clock. For unit rim slope and a vanishing vertex jump, the bracket of the two linear responses approaches $+G_N/30$ when the second reading is later and $-G_N/30$ when it is earlier. Two shrinking windows can even share the same centre and variance and still give $-G_N/150$. Using the same window twice gives zero. The shape of the timing window is therefore part of this measurement (\repo{audit/weak-clock-contact.md}{exact calculation}).
+The flat-space calculation gives the response to a weak wave when its amplitude is taken to zero before the timing window is narrowed. On a curved Kasner torus we can compare the clocks themselves. Take two cap readings on the same diamond at each emitter and average over emitter positions. Fixing their common midpoint by curvature age or total spatial volume gives a zero bracket. Fixing it by a geometrically selected torus length gives a positive bracket for sufficiently small diamonds. All three rules select the same reference slice and respond differently when the metric changes (\repo{audit/timing-kasner.md}{two curved clocks}).
+
+In the free graviton model, a simultaneous Gaussian readout adds at least $\hbar|B_h|/2$ variance per channel when the meter noises are balanced. The field has fluctuations of its own. For one calibrated clock its vacuum variance rises by $\hbar G_N\log 2/(30\pi)$ each time a short timing window is halved (\repo{audit/timing-readout.md}{joint readout}, \repo{audit/timing-quantum.md}{vacuum fluctuations}).
 
 Can a quantum state fit inside the clock ceiling, and how many orthogonal states can do so? Two solved continuum models clarify what the quantum theory must still specify. In a bare fixed-background curved-target model, ever finer shear fluctuations drive even the lowest clock reading above any fixed ceiling, emptying every finite window. In a linearized model where the clock smooths the shear over a fixed range of angles and radii before squaring it, Wick bounds establish 63.7\% as a lower bound on the vacuum probability of passing a ceiling 20\% above the shear-free reading for that particular smoothed model (at $s = 10{,}000$ and cap fraction $1/4$); infinitely many mutually orthogonal preparations also fit because the fixed-resolution clock becomes increasingly insensitive to fine ripples. Both theorems hold strictly for their respective frozen-background or fixed-resolution model clocks. Neither settles nonperturbative four-dimensional finite rank, which depends on the physical ultraviolet response, nonlinear polarization domain, and coupled gravitational constraints of the original diamond (\repo{audit/clock-spectrum.md}{bare clock}, \repo{audit/clock-construction.md}{finite-resolution clock}).
 
