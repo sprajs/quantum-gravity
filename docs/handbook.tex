@@ -683,6 +683,24 @@ A crossing-wave calculation provides an additional classical self-interaction be
 \end{figure}
 
 \clearpage
+\subsection{What fits inside a fixed-size diamond?}
+Hold the sphere's area, the clock ceiling, and Newton's constant fixed while admitting ever finer angular and radial modes; the lowest achievable reading can shift as new modes enter. In one linearized model, the local area radius fluctuates across the sky alongside both gravitational-wave polarizations, while a fixed physical detector smooths the shear before squaring it. At a ceiling $20\%$ above the shear-free round reading, the specified product vacuum passes with probability at least $47.8\%$ even though rare shapes drive its mean reading to infinity, and infinitely many orthogonal states still pass. Removing that smoothing in the bare comparison instead drives the spectral floor past the ceiling for every state, leaving the full gravitational constraints to decide which ultraviolet response governs a physical diamond (\repo{audit/fluctuating-corner-state.md}{state and probability}, \repo{audit/existence-limit.md}{unsmoothed limit}).
+
+\begin{center}
+ \captionsetup{type=figure}
+ \includegraphics[width=0.84\linewidth]{../figures/clock-floor.png}
+ \caption{The bare comparison admits no state below the dashed ceiling once the green bound crosses it. Both radial and angular mode cutoffs increase at fixed size, $s=10^4$ and cap fraction $1/4$. Even capping the focusing exponent at four gives a clock floor of at least $1.22509$ times the round reading at cutoff eight. Points below the dashed line supply only a lower bound.}
+ \label{fig:fixed-clock-floor}
+\end{center}
+
+Angular symmetries offer an independent test of finite rank. Pair a quarter-turn of the sphere with a smooth area-preserving twist that shifts each latitude by a different angle. If both motions act unitarily on the physical fixed-area states, transport the local area density covariantly, and preserve a given clock window, then finite dimension forces every accepted state to have strictly uniform local area; a single accepted state with nonuniform area would imply infinite rank. A Gaussian log-area model shows why these hypotheses must be verified rather than assumed: the twist alters the high-frequency angular power almost surely, making the transformed law mutually singular (\repo{audit/rank-symmetry.md}{angular test}, \repo{audit/angular-gaussian.md}{Gaussian example}).
+
+\paragraph{How a clock is started.} A single observer can trigger launch either by local curvature age or by a signal marking when a global length around a compact universe reaches a chosen value. On the curved Kasner torus, both rules select the same launch event in the reference spacetime yet shift differently when the metric is perturbed, yielding a negative common-window bracket at one observer without spatial averaging across the universe.
+
+Orienting two different caps on a plane wave by pointwise tidal curvature exposes the bracket to short waves: at fixed weak curvature it can diverge as $h^{-6}$ in the timing width $h$, even when both windows share the same timestamp and first four moments. Averaging the launch curvature over a fixed worldline segment removes that leading term. Identical timing windows also cancel that term. Even then, the tidal measurement at launch couples to the light rays leaving that very event. The bracket grows without bound in magnitude for every sufficiently weak fixed wave. Its leading power and sign at fixed strength remain open. Both clocks still give ordinary classical readings. The calculation uses the surrounding vacuum to propagate their response (\repo{audit/local-clock-control.md}{one observer}, \repo{audit/local-curved-bracket.md}{point measurement}, \repo{audit/fixed-strength-contact.md}{synchronized clocks}).
+
+\clearpage
+
 \subsection{Executable checks and provenance}
 All calculations underlying this handbook are documented in the \href{https://github.com/sprajs/quantum-gravity}{public review repository}. The \repo{audit/verification-scope.md}{verification inventory} gives the extent of the checks for each part of the preprint. The full verification suite runs via \texttt{make check}; three core benchmarks (Table~\ref{tab:checks}) require only the Python~3 standard library.
 
