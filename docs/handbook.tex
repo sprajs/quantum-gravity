@@ -1,4 +1,4 @@
-% Illustrated handbook source; the scalar phase plot is in ../figures/.
+% Illustrated handbook source; the scientific plots are in ../figures/.
 % Compile with pdfLaTeX (twice) or latexmk -pdf.
 \RequirePackage{fix-cm}
 \documentclass[10pt,a4paper]{article}
@@ -568,6 +568,20 @@ If a nonempty four-dimensional clock window proves to have finite rank and the a
 
 An infinite-dimensional outcome would still leave room for well-defined entropy calculations. Infinite-dimensional observable algebras of Type~II, for example, admit semifinite traces that can assign finite weight to a projection of infinite Hilbert-space rank. Where the entropy of a state is finite, rescaling the trace shifts it by an additive constant. Chandrasekaran's construction uses the ordinary Type~I trace; obtaining a different algebra for the causal diamond would require a separate derivation.
 
+\subsection{What the new calculations settle}
+Several follow-up calculations now close specific classical checks while clarifying why classical boundary recovery and model clock constructions are strictly separate from proving finite rank in nonperturbative four-dimensional quantum gravity. First, the complete curvature decomposition verifies the preprint's classical bulk density formula off shell for general smooth affine null metrics. Second, when the waist area changes, a cap placed at a fixed \emph{fraction} of that area still moves; differentiating the shear contribution while tracking that moving endpoint supplies the exact rim term missing from the printed finite-cap two-form for both polarizations at fixed generator labels. That classical repair still leaves the cap's own Cauchy data and radiative boundary flux to be included, and it does not settle the quantum state count. To see why the cap rim still matters even classically, consider a perturbation confined to an ever thinner strip near the rim: its integrated interior strength can approach zero while the clock retains a finite response to its value at the rim. An inverse built solely from square-integrable interior sources can therefore reproduce bulk dynamics while missing what the clock reads (\repo{audit/rim-potential.md}{rim calculation}, \repo{audit/endpoint-inverse.md}{clock example}, \repo{audit/bulk-identity.md}{bulk identity}).
+
+Can a quantum state fit inside the clock ceiling, and how many orthogonal states can do so? Two solved continuum models clarify what the quantum theory must still specify. In a bare fixed-background curved-target model, ever finer shear fluctuations drive even the lowest clock reading above any fixed ceiling, emptying every finite window. In a linearized model where the clock smooths the shear over a fixed range of angles and radii before squaring it, Wick bounds establish 63.7\% as a lower bound on the vacuum probability of passing a ceiling 20\% above the shear-free reading for that particular smoothed model (at $s = 10{,}000$ and cap fraction $1/4$); infinitely many mutually orthogonal preparations also fit because the fixed-resolution clock becomes increasingly insensitive to fine ripples. Both theorems hold strictly for their respective frozen-background or fixed-resolution model clocks. Neither settles nonperturbative four-dimensional finite rank, which depends on the physical ultraviolet response, nonlinear polarization domain, and coupled gravitational constraints of the original diamond (\repo{audit/clock-spectrum.md}{bare clock}, \repo{audit/clock-construction.md}{finite-resolution clock}).
+
+A crossing-wave calculation provides an additional classical self-interaction benchmark. Follow a weak gravitational wave as it passes through a stronger counterpropagating wave, and compare two perpendicular transverse lengths along the same calibrated axes. Before focusing, the weak signal in their log ratio is amplified by exactly the reciprocal of the radius to which the strong wave has focused the transverse area, in units where the incoming radius is one. Any candidate evolution law can be tested against this formula on the same plane-symmetric vacuum patch, whereas full quantum graviton scattering amplitudes and closed-trace control of the four-dimensional state count remain open (\repo{audit/interacting-test.md}{interacting waves}, \repo{THEORY.md}{results and outstanding tests}).
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=0.80\linewidth]{../figures/wave-transfer.png}
+ \caption{Weak-probe response in the specified classical vacuum patch. The solid curve solves the focusing equation for the incoming strong pulse. The points come from evolving both waves on a null grid.}
+ \label{fig:wave-transfer}
+\end{figure}
+
 \subsection{Executable checks and provenance}
 All calculations underlying this handbook are documented in the \href{https://github.com/sprajs/quantum-gravity}{public review repository}. The \repo{audit/verification-scope.md}{verification inventory} gives the extent of the checks for each part of the preprint. The full verification suite runs via \texttt{make check}; three core benchmarks (Table~\ref{tab:checks}) require only the Python~3 standard library.
 
@@ -597,6 +611,7 @@ All calculations underlying this handbook are documented in the \href{https://gi
 \footnotesize
 \renewcommand{\section}[2]{\subsection*{References}}
 \renewcommand{\markboth}[2]{}
+\clearpage
 \begin{thebibliography}{9}\setlength{\itemsep}{1.5pt}\setlength{\parskip}{0pt}
 \bibitem{chandrasekaran2026}
   V.~Chandrasekaran, \textsl{An algebraic quantization of gravity from the null cone},

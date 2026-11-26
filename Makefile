@@ -27,7 +27,7 @@ check:
 	@set -eu; for test in checks/*.py; do \
 		echo "$$test"; \
 		case "$$test" in \
-			checks/03-4.py) uv run --script "$$test" ;; \
+			checks/03-4.py|checks/bulk_identity.py) uv run --script "$$test" ;; \
 			*) python3 "$$test" ;; \
 		esac; \
 	done
