@@ -1,4 +1,4 @@
-% Self-contained LaTeX source for the illustrated scientific handbook.
+% Illustrated handbook source; the scalar phase plot is in ../figures/.
 % Compile with pdfLaTeX (twice) or latexmk -pdf.
 \RequirePackage{fix-cm}
 \documentclass[10pt,a4paper]{article}
@@ -545,6 +545,22 @@ Taken together, Sections~\ref{sec:geometry}--\ref{sec:entropy} narrow the four-d
 
 Third, a physical corner charge whose spectral projections commute with $P_\ell$ and whose spectral measure has a continuous component on a nonzero accepted state would transfer the infinite-rank shape mechanism of Section~\ref{subsec:shape-model} (p.~\pageref{subsec:shape-model}) to gravity, whereas constructing a finite-dimensional projection $F$ satisfying $\|(1-F)P_\ell\| < 1$ would force $F$ to be injective on the selected space and bound its dimension directly. Fourth, controlling interacting evolution and closed sewing requires removing the regulator to recover weak-field four-graviton amplitudes (Einstein tree and two-loop benchmarks) and proving that distinct exhaustive cuts of the closed boost response converge with controlled error to an independently defined uncut amplitude. Fifth, an independent microscopic derivation of Schwarzschild entropy requires evaluating the clock-filtered replica determinant with its area-mode integration, ghost modes, and zero modes under the same boundary conditions as the state count, verifying that the marginal horizon saddle dominates a flat round sphere and that spin restrictions reproduce Sen's logarithmic coefficients $167/90$ and $77/90$.
 
+\subsection{What changes when the diamond contains matter?}
+Chandrasekaran's four-dimensional state-count proposal addresses \emph{vacuum} gravity; adding a minimally coupled massless scalar supplies three separate benchmarks---exact classical geometry, semiclassical mean-metric backreaction, and a conditional rank test---without settling the vacuum conjecture.
+
+\textbf{Exact classical geometry and the matched-waist reference.} Even in a round (shear-free) diamond, a classical scalar focuses light through its positive null energy. To compare fairly against flat space, match the \emph{spatial waist area}: take a flat reference diamond of the same waist radius $r_S$ and mark each cap at the same fraction $\epsilon$ of $r_S$. At $\epsilon = 5/16$, that matched-waist flat diamond reads $1 - 5/16 = 0.68750$ (in units of $r_S$) on either face. In an exact expanding Einstein--scalar universe with conformal tip times in the ratio $7:1$ (future to past) and cap fraction $5/16$, the past-tip face reads $0.77643$ and the future-tip face reads $0.72263$ in units of $r_S$---both above the flat benchmark, and both fixed by the same exact classical solution (\repo{audit/matter-diamond.md}{geometry and calculation}).
+
+\textbf{Semiclassical mean metric and the meaning of the mean clock reading.} At the quantum level, reversing a single sign reverses the leading shift. Prepare a spherical free-scalar mode in a coherent superposition of vacuum and two particles, then flip the sign of its two-particle amplitude. Both states share the same particle-number probabilities and total mean energy, yet interfere with opposite signs in the local renormalized stress. For $\epsilon = 1/2$ and the spherical packet of reference waist radius $R \gg \ell_P$ in the \repo{audit/matter-null-energy.md}{worked calculation}, the leading excess over a flat diamond matched to the same physical waist radius flips on the past-tip face from $-0.01142$ to $+0.01592$, in units of $\ell_P^2/R$, and reverses sign on the future-tip face as well (Figure~\ref{fig:scalar-clock}). This is a \emph{mean-metric} clock reading: it evaluates the classical clock formula on the average spacetime geometry sourced by the quantum stress expectation value to first order in $G_N\hbar = \ell_P^2$ (omitting graviton fluctuations). A negative value means this mean geometry reads slightly shorter than the matched-waist flat benchmark; predicting the shot-to-shot spread of readings in a single preparation requires a renormalized quantum clock operator and control of its fluctuations.
+
+\textbf{Conditional scalar rank.} A separate question is whether a matter-coupled diamond can distinguish an absolute scalar value. Shifting a free massless scalar by a constant leaves its classical stress unchanged. Under the conditional assumptions that this noncompact shift preserves a nonempty clock-accepted subspace and that a calibrated readout tracks the shift arbitrarily far along the real line, finite rank is impossible: the uniform state on finitely many allowed states would assign equal probability to every consecutive interval of equal width, which cannot sum to one. Fixing the boundary value, compactifying the scalar target, breaking the shift, or treating it as gauge alters those hypotheses and what states can be counted (\repo{audit/matter-state-count.md}{conditional state-count theorem}). None of these matter benchmarks decides finite dimension in vacuum gravity.
+
+\begin{figure}[htbp]
+ \centering
+ \includegraphics[width=0.80\linewidth]{../figures/scalar-clock-phase.png}
+ \caption{Leading semiclassical mean-metric clock excess $R E^{(1)}/\ell_P^2$ as the relative phase between vacuum and two scalar particles varies at fixed mean energy ($\epsilon = 1/2$, $R \gg \ell_P$). Points below zero denote a shorter mean affine reading than in flat space matched to the same physical waist area; both faces dip below zero near $\pi$.}
+ \label{fig:scalar-clock}
+\end{figure}
+
 \subsection{Physical consequences of either outcome}
 Around a regular classical saddle, the constrained bulk equations, null focusing, exact four-dimensional pair overlap, and fixed-resolution stationary-phase and one-loop backreaction already reproduce the expected structures; removing fixed-resolution averaging remains open.
 
@@ -553,7 +569,7 @@ If a nonempty four-dimensional clock window proves to have finite rank and the a
 An infinite-dimensional outcome would still leave room for well-defined entropy calculations. Infinite-dimensional observable algebras of Type~II, for example, admit semifinite traces that can assign finite weight to a projection of infinite Hilbert-space rank. Where the entropy of a state is finite, rescaling the trace shifts it by an additive constant. Chandrasekaran's construction uses the ordinary Type~I trace; obtaining a different algebra for the causal diamond would require a separate derivation.
 
 \subsection{Executable checks and provenance}
-All calculations underlying this handbook are documented in the \href{https://github.com/sprajs/quantum-gravity}{public review repository}. The full 15-script verification suite runs via \texttt{make check}; three core benchmarks (Table~\ref{tab:checks}) require only the Python~3 standard library.
+All calculations underlying this handbook are documented in the \href{https://github.com/sprajs/quantum-gravity}{public review repository}. The \repo{audit/verification-scope.md}{verification inventory} gives the extent of the checks for each part of the preprint. The full verification suite runs via \texttt{make check}; three core benchmarks (Table~\ref{tab:checks}) require only the Python~3 standard library.
 
 \begin{table}[htbp]
   \centering

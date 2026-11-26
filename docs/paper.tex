@@ -41,7 +41,7 @@
 \maketitle
 
 \begin{abstract}
-Does a bound on the size of a causal diamond limit the number of quantum states it can contain? We examine this question in Chandrasekaran's null-cone quantization of four-dimensional vacuum gravity (arXiv:2611.34924v1). Classical focusing bounds the corner area in terms of an affine clock, and a single-harmonic Gaussian graviton-pair overlap admits an exact dilogarithm sum. At finite cap size, the proposed symplectic form has a nonzero exterior derivative on variations allowed by the boundary conditions. Two separate questions arise in the quantum state count. The continuum clock must first admit a state below the prescribed reading. Even if it does, the reflected weight has a strictly positive lower bound on the accepted space, so finiteness of its ordinary trace is equivalent to finite rank. Convergence of amplitudes between normalizable states leaves that trace undetermined. We exhibit this distinction in a two-area model and derive the assumptions under which the Schwarzschild area packet reproduces Sen's spin-summed logarithmic coefficient. An independently constructed clock projection and closed trace would test the proposed microscopic count.
+Does a bound on the size of a causal diamond limit the number of quantum states it can contain? We examine this question in Chandrasekaran's null-cone quantization of four-dimensional vacuum gravity (arXiv:2611.34924v1). Classical focusing bounds the corner area in terms of an affine clock, and a single-harmonic Gaussian graviton-pair overlap admits an exact dilogarithm sum. At finite cap size, the proposed symplectic form has a nonzero exterior derivative on variations allowed by the boundary conditions. Two separate questions arise in the quantum state count. The continuum clock must first admit a state below the prescribed reading. Even if it does, the reflected weight has a strictly positive lower bound on the accepted space, so finiteness of its ordinary trace is equivalent to finite rank. Convergence of amplitudes between normalizable states leaves that trace undetermined. We exhibit this distinction in a two-area model and derive the assumptions under which the Schwarzschild area packet reproduces Sen's spin-summed logarithmic coefficient. A finite two-copy calculation isolates what a microscopic trace must establish. In a separate matter extension, reversing the relative phase of a vacuum--two-particle scalar state reverses the leading semiclassical clock excess on both null sheets at fixed mean energy.
 \end{abstract}
 
 \section{Introduction}
@@ -140,6 +140,8 @@ Neither adding the exterior derivative of the cap-joint potential (Ref.~\cite{Ch
 
 Any covariant repair that retains moving caps and their joints, or narrows the admissible variations, must also produce a consistent Hamiltonian generator (Ref.~\cite{Chandrasekaran2026}, Section~3.4 and Appendix~B).
 While the bulk first-order Hamiltonian reduces on the constraints to a boundary integral and a fixed-location corner boost integrates cleanly to $A/(8\pi G_N)$, a translating cut carries an additional boundary flux $-i_\xi\theta$ in the covariant charge variation; on a Schwarzschild sphere the surface integral in the stated normalization equals $M/2$, giving $\delta M/2$ in its variation, and on unrestricted radiating null data the fixed-embedding bulk charge variation is nonintegrable without compensating boundary degrees of freedom or flux-restricting boundary conditions (\repo{audit/03-4.md}{Hamiltonian and boundary-flux analysis}).
+
+In a separate off-shell check, arbitrary smooth functions $F(t,r)$ and $b(t,r)>0$ in the metric $ds^2=-Fdt^2-2dt\,dr+b^2d\Omega^2$ give exact agreement between the bulk density in Appendix~B and the direct four-dimensional Ricci scalar density, after the total derivatives are included and the common cosmological term is removed. Here the angular shift and both shears vanish. Integration over a closed cut removes the angular divergence in Eq.~(B.7) and leaves a radial endpoint contribution (\repo{audit/03-4.md}{curvature and endpoint checks}).
 
 \section{Single-Cone Graviton-Pair Overlap and Weak Coupling}
 \label{sec:pair}
@@ -440,6 +442,45 @@ For closed contractions, the unnormalized boost response along distinct exhausti
 \paragraph{Full Schwarzschild packet measure and saddle selection.}
 Repeating the one-loop Schwarzschild determinant directly for the clock-filtered state requires checking whether the trace selects the marginal horizon saddle over a flat round sphere, evaluating the area-mode integration and zero modes on joined replicas under the same boundary conditions used in the state count, and testing whether the resulting Lorentzian trace recovers both the spin-summed coefficient $106/45$ and the spin-restricted values ($167/90$ and $77/90$) of Ref.~\cite{Sen2013}.
 
+\paragraph{A two-copy test using finite sets of states.}
+As a finite-cut diagnostic for the rank and closed-sewing problems above, let $F$ project onto $r$ orthonormal physical inputs inside the clock-selected subspace $P_\ell\HH$ at a fixed threshold, and suppose the reflected weight satisfies $0<mI\le W\le MI$ on $P_\ell\HH$ with fixed constants $m,M$ throughout refinement. Its finite Gram matrix $G_F=FWF|_{F\HH}$ is determined by open overlaps of fixed cap outputs and defines the conditioned two-copy return (purity) $Q_F=\tr(G_F^2)/(\tr G_F)^2$. For eigenvalues $\lambda\in[m,M]$, the inequality $(\lambda-m)(M-\lambda)\ge0$ and Cauchy--Schwarz give
+\begin{equation}
+  1\le rQ_F\le \frac{(m+M)^2}{4mM}.
+  \label{eq:two-copy-bound}
+\end{equation}
+A uniform positive lower bound on $Q_F$ along an increasing family of projections exhausting $P_\ell\HH$ would therefore prove finite rank (while in infinite dimension $Q_F\to 0$ along every exhaustion). In an explicit continuous-area model, the regular replica integrals of Ref.~\cite{Chandrasekaran2026} (Appendix~D.3) give a return of $0.586222$, whereas for the same weight the microscopic return on any four or more orthonormal inputs is at most $0.400495$. Equating the replica integral to the microscopic return computed from physical states thus imposes an independently testable condition (\repo{audit/purity-test.md}{derivation and finite-matrix controls}).
+
+\section{A Massless Scalar on the Two Null Sheets}
+\label{sec:matter}
+
+The four-dimensional state-count proposal of Ref.~\cite{Chandrasekaran2026} addresses \emph{vacuum} gravity; coupling a minimally coupled massless real scalar supplies three separate benchmarks---for exact classical geometry, semiclassical mean-metric backreaction, and conditional state counting---without deciding the vacuum conjecture itself.
+
+\paragraph{Exact classical geometry.}
+In spherical symmetry the gravitational shear vanishes. Along either null sheet, let the affine parameter $u$ increase from the tip toward the common waist of area radius $r_S$ with tangent $k=\partial_u$, and place the cap at $r_c=\epsilon r_S$ ($0<\epsilon<1$). Defining the cap-normalized clock reading $U=r'_c(u_S-u_c)$ with $r'_c\equiv r'(u_c)$ as in~\eqref{eq:affine-clock}, integrating the radial Einstein equation $r''=-4\pi G_N rT_{kk}$ twice gives the exact classical excess over a flat diamond of matched waist radius $r_S$,
+\begin{equation}
+  E = U - (1-\epsilon)r_S
+    = 4\pi G_N\int_{u_c}^{u_S}(u_S-u)\,r(u)\,T_{kk}(u)\,du.
+  \label{eq:matter-excess}
+\end{equation}
+For a classical scalar, $T_{kk}=(k^\mu\partial_\mu\phi)^2\ge 0$. In the spatially flat homogeneous Einstein--scalar solution with scale factor $a(t)\propto t^{1/3}$, choosing positive conformal tip times in the ratio $7:1$ (future to past) and cap fraction $\epsilon=5/16$ gives strictly positive expansion up to the waist on both sheets, with past- and future-tip readings $4025/5184$ and $5781/8000$ in units of $r_S$; both exceed the matched-waist flat value $1-\epsilon=11/16$ (\repo{audit/matter-diamond.md}{exact solution and weak-field limits}).
+
+\paragraph{Semiclassical mean-metric response.}
+By contrast, the renormalized stress expectation in a finite quantum state can take either sign along a finite null segment~\cite{FewsterRoman2003}. In a flat reference Minkowski diamond of waist radius $R$ (tips at $t=0,2R$), prepare the normalized spherical free-scalar mode $f(t,r)=R/(\pi[(R+it)^2+r^2])$. In units $c=\hbar=1$, the two states $(|0\rangle\pm 0.1|2_f\rangle)/\sqrt{1.01}$ share the same particle-number distribution and equal total mean energy $2/(101R)$, while their vacuum--pair interference enters the Minkowski vacuum-subtracted stress expectation $\langle{:}T_{kk}{:}\rangle$ with opposite signs. For $\epsilon=1/2$, substituting this smooth expectation value into the linearized semiclassical mean-metric version of~\eqref{eq:matter-excess} yields
+\begin{equation}
+  \frac{R E^{(1)}}{\ell_P^2} =
+  \begin{array}{c|rr}
+    & \text{minus state} & \text{plus state}\\ \hline
+   \text{past-tip sheet} & -0.0114211 & +0.0159152\\
+   \text{future-tip sheet} & -0.0035467 & +0.0071501
+  \end{array}
+  \qquad (R\gg\ell_P).
+  \label{eq:scalar-sign}
+\end{equation}
+Here $E$ subtracts the flat reading at the \emph{physical} waist radius $r_S$, and its leading term $E^{(1)}$ samples $\langle{:}T_{kk}{:}\rangle$ against the kernel $(R-u)u$ on the reference sheet. This result tests a signed semiclassical mean-metric response (omitting graviton fluctuations); obtaining the expectation value or probability distribution of a full quantum clock requires a renormalized geometric operator and control of its fluctuations (\repo{audit/matter-null-energy.md}{packet normalization and integrals on both faces}).
+
+\paragraph{Conditional scalar rank.}
+The matter-coupled state count also depends on the allowed scalar boundary data. Suppose a nonempty physical clock projection $P$ is preserved by an exact noncompact scalar shift ($\phi\mapsto\phi+a$, $a>0$) and that a calibrated scalar-value measurement on $\mathbb{R}$ translates with it. If $P$ had finite rank $d$, the invariant state $P/d$ would induce a normalized probability measure on $\mathbb{R}$ invariant under a nonzero translation; its equal probabilities on the countably many translates of a fundamental interval cannot sum to unity, so finite rank is impossible under these hypotheses. Fixing the boundary value, compactifying the scalar target, breaking the symmetry, or removing the shift as a gauge redundancy alters the hypotheses and the physical count. Establishing the boundary algebra and joint symplectic form for the coupled quantum theory remains open, and none of these matter benchmarks by itself settles the vacuum four-dimensional conjecture (\repo{audit/matter-state-count.md}{scalar shift and finite-resolution test}).
+
 \section{Conclusions}
 \label{sec:conclusions}
 
@@ -454,8 +495,8 @@ The finite-cap defect calls for a boundary two-form derived with the cap and its
 \section{Reproducibility, Data, and Authorship Disclosure}
 \label{sec:repro}
 
-All companion derivations, the \repo{EQUATIONS.md}{equation index}, the \repo{audit/dependencies.md}{dependency analysis}, the \repo{reviews/README.md}{public review record}, and the \repo{docs/paper.tex}{LaTeX source} of this article are archived in the public repository at \url{https://github.com/sprajs/quantum-gravity}.
-The four core numerical checks cited in Sections~\ref{sec:classical}--\ref{sec:sewing} rely solely on the Python~3 standard library and are listed in Table~\ref{tab:repro}; running \texttt{make check} from the repository root executes the full 15-script verification suite (with \texttt{checks/03-4.py} invoking SymPy via \texttt{uv}).
+All companion derivations, the \repo{EQUATIONS.md}{equation index}, the \repo{audit/verification-scope.md}{verification inventory by section}, the \repo{audit/dependencies.md}{dependency analysis}, the \repo{reviews/README.md}{public review record}, and the \repo{docs/paper.tex}{LaTeX source} of this article are archived in the public repository at \url{https://github.com/sprajs/quantum-gravity}.
+The four core numerical checks cited in Sections~\ref{sec:classical}--\ref{sec:sewing} rely solely on the Python~3 standard library and are listed in Table~\ref{tab:repro}; running \texttt{make check} from the repository root executes the full verification suite (with \texttt{checks/03-4.py} invoking SymPy via \texttt{uv}).
 
 \begin{table}[htbp]
 \centering
@@ -487,8 +528,7 @@ Because Astra checks share a model family with the preprint's collaborator, and 
 \begingroup
 \small
 \raggedright
-\begin{thebibliography}{19}
-\setlength{\itemsep}{2pt plus 1pt}
+\begin{thebibliography}{20}\setlength{\itemsep}{2pt plus 1pt}
 
 \bibitem{Chandrasekaran2026}
 V.~Chandrasekaran,
@@ -601,6 +641,12 @@ E.~Colafranceschi, X.~Dong, D.~Marolf, and Z.~Wang,
 \emph{Algebras and Hilbert spaces from gravitational path integrals: Understanding Ryu--Takayanagi/HRT as entropy without AdS/CFT},
 JHEP \textbf{10} (2024) 063,
 \href{https://arxiv.org/abs/2310.02189}{arXiv:2310.02189}.
+
+\bibitem{FewsterRoman2003}
+C.~J.~Fewster and T.~A.~Roman,
+\emph{Null energy conditions in quantum field theory},
+Phys.\ Rev.\ D \textbf{67}, 044003 (2003),
+\href{https://doi.org/10.1103/PhysRevD.67.044003}{doi:10.1103/PhysRevD.67.044003}.
 
 \end{thebibliography}
 \endgroup

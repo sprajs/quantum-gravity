@@ -2,6 +2,8 @@
 
 A measured distortion of light would establish that gravity affected the light. A result specific to this proposed quantization would require a second step. Two theories would have to assign different, calculable probabilities to the same preparation and measurement, with their shared parameters fixed beforehand. At present the paper supplies several quantities to calculate and no verified detector signal that distinguishes it from ordinary low-energy gravity.
 
+For calculations that can be pursued entirely on paper, the Einstein–scalar diamond gives exact readings on two cones. A finite-particle scalar preparation yields opposite signed semiclassical clock responses at the same total mean energy. The two-copy test asks whether the original vacuum clock could select finitely many states. [Theoretical predictions and tests](THEORY.md)
+
 ## Five worked outcomes
 
 * **A calculation that could test the paper itself.** Compute the fraction of the boost-weighted trace over clock-selected states that falls below half the largest allowed area in the large Schwarzschild ensemble. The paper's one-loop packet assignment gives **0.13816**. Assigning that power to a density per unit area instead gives **0.09770** under the comparison model's assumptions. A count derived independently from the gravitational states could confirm either value or give a third result. Algebraically converting one assumed exponent into its fraction is not an independent calculation of the fraction. [Ensemble calculation](audit/observable-entropy.md)

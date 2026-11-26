@@ -12,7 +12,7 @@ The paper asks how many *perfectly distinguishable* states of gravity fit inside
 
 **What the review found.** The classical distortion of the rays checks out, and one quantum calculation for a pair of ripples can be repeated exactly. The difficult leap is from those results to a count of *every possible state*. The paper gives a convergence argument for a known initial and final state, whereas counting all states requires another mathematical step. That closed-sewing step, the existence of the quantum clock when arbitrarily fine ripples are allowed, and a boundary defect in the finite-cap symplectic form remain open. Nothing in this review physically refutes finite-dimensional diamonds; the findings are proof gaps, defects in the construction as written, and model counterexamples.
 
-The sections below work through the thought experiment, the state-counting argument, the observable quantities, and the proposed tests. [Observable tests](OBSERVABLES.md) · [Illustrated handbook](output/pdf/handbook.pdf) · [Scientific paper](output/pdf/paper.pdf) · [Technical review](README.md) · [Referee report](REFEREE.md)
+The sections below work through the thought experiment, the state-counting argument, the observable quantities, and the proposed tests. [What happens when the diamond contains matter?](THEORY.md) · [Observable tests](OBSERVABLES.md) · [Illustrated handbook](output/pdf/handbook.pdf) · [Scientific paper](output/pdf/paper.pdf) · [Technical review](README.md) · [Referee report](REFEREE.md)
 
 ---
 

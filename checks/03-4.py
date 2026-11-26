@@ -2,7 +2,7 @@
 # requires-python = ">=3.10"
 # dependencies = ["sympy==1.14.0"]
 # ///
-"""Exact flat-metric checks of Appendix B. Run with Python 3 and SymPy."""
+"""Exact flat and curved metric checks of Appendix B. Run with Python 3 and SymPy."""
 
 import sympy as sp
 
@@ -119,6 +119,50 @@ def check_metric(affine):
     ))
 
 
+def check_round_density():
+    # The two arbitrary functions are independent of each other and of Einstein's equations.
+    radius = sp.Function("b")(t, v)
+    potential = sp.Function("F")(t, v)
+    coords = (t, v, x, y)
+    metric = sp.Matrix([
+        [-potential, -1, 0, 0],
+        [-1, 0, 0, 0],
+        [0, 0, radius**2, 0],
+        [0, 0, 0, radius**2 * sp.sin(x)**2],
+    ])
+    inverse = metric.inv()
+
+    def connection(i, j, k):
+        return half * sum(inverse[i, l] * (
+            metric[l, k].diff(coords[j]) + metric[j, l].diff(coords[k])
+            - metric[j, k].diff(coords[l])) for l in range(4))
+
+    gamma = [[[connection(i, j, k) for k in range(4)] for j in range(4)] for i in range(4)]
+
+    def ricci(i, j):
+        return sum(gamma[k][i][j].diff(coords[k]) - gamma[k][i][k].diff(coords[j])
+                   + sum(gamma[k][i][j] * gamma[l][k][l] - gamma[l][i][k] * gamma[k][j][l]
+                         for l in range(4)) for k in range(4))
+
+    # Compare both densities per solid angle away from the coordinate poles.
+    scalar = sum(inverse[i, j] * ricci(i, j) for i in range(4) for j in range(4) if inverse[i, j])
+    area = radius**2
+    bulk = 2 - area.diff(t) * area.diff(v) / area
+    delta_bulk = area.diff(v) * potential.diff(v) + potential * area.diff(v)**2 / (2 * area)
+    time_boundary = 2 * area.diff(v)
+    radial_boundary = 2 * area.diff(t) - area * potential.diff(v) - 2 * potential * area.diff(v)
+    printed = bulk + delta_bulk + time_boundary.diff(t) + radial_boundary.diff(v)
+    report("B.10–11 round off-shell density", sp.trigsimp(area * scalar - printed))
+    curvature = sp.Symbol("k")
+    actual = scalar.subs({radius: v, potential: 1 - curvature*v**2}).doit()
+    report("round constant-curvature control (Ricci scalar minus 12k)", sp.trigsimp(actual - 12*curvature))
+    alpha = sp.Symbol("alpha")
+    bent_radius = v + alpha * v**2
+    radial_ricci = ricci(1, 1).subs({radius: bent_radius, potential: 1}).doit()
+    report("round non-Einstein control (Ricci vv plus 4 alpha/b)", radial_ricci + 4*alpha/bent_radius)
+
+
 if __name__ == "__main__":
     check_metric(affine=False)
     check_metric(affine=True)
+    check_round_density()

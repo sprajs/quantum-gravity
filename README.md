@@ -8,6 +8,8 @@ The [scientific paper](output/pdf/paper.pdf) develops the clock bound, the disti
 
 **Start with what can be measured or computed.** The [observable research program](OBSERVABLES.md) puts specified preparations, calculable quantities, experimental controls and discriminating tests ahead of historical debate. The [comparison of approaches](audit/approaches.md) identifies where candidate theories address the same observable and where their assumptions or ensembles differ.
 
+**Theoretical results with matter.** A massless scalar gives an exact classical diamond, a phase-sensitive semiclassical prediction, and a conditional theorem about the number of distinguishable scalar states. A separate two-copy calculation tests the vacuum state count. The inventory records what was established in each part of v1, including the limits of the Appendix B checks. [Theoretical results and next calculations](THEORY.md) · [Verification by section and appendix](audit/verification-scope.md)
+
 **Read the disagreements.** The [Fable challenge and Astra cross-check](audit/research-review.md), [Oppenheim critique](audit/oppenheim-obstacles.md) and [canonical-quantization debate](audit/canonical-debate.md) examine substantive objections on their merits. The [public review record](reviews/README.md) preserves Fable's arguments alongside their scope and qualifications. The [working convention](AGENTS.md) describes how to continue the study and verify future changes.
 
 **Scope of the verdict.** Nothing in this review physically refutes finite-dimensional causal diamonds. The findings fall into three classes: exact reproductions, **defects in the construction as written** (such as the unclosed finite-cap two-form), and **proof gaps** where a step remains unproved and the physical conjecture stays open.
@@ -43,12 +45,12 @@ The [dependency analysis](audit/dependencies.md) follows the conclusions through
 
 ## Reproduction
 
-Run `make check` to execute all 15 scripts in [checks](checks) with Python 3 and `uv`. The Appendix B test (`checks/03-4.py`) uses SymPy 1.14.0, declared in its script metadata; the other 14 scripts use only the Python standard library. The table below gives six starting points. The remaining nine scripts cover the clock-window floor (`clock_window.py`), observable tests (`observable_optics.py`, `observable_lab.py`, `observable_entropy.py`, `boost_observable.py`), canonical reduction and refoliation controls (`reduction.py`, `refoliation.py`), and Fable's independent calculations (`fable-boundaries-entropy.py`, `fable-clock-sewing.py`), documented in [OBSERVABLES.md](OBSERVABLES.md), [audit/research-review.md](audit/research-review.md), and the [public review record](reviews/README.md).
+Run `make check` to execute all 19 scripts in [checks](checks). The Appendix B calculation uses SymPy 1.14.0 via `uv`. The other 18 use the Python standard library. The table gives six starting points. Further commands and expected outputs accompany the [scalar diamond](audit/matter-diamond.md), [quantum scalar clock](audit/matter-null-energy.md), [scalar shift](audit/matter-state-count.md), [two-copy state-count test](audit/purity-test.md), [observables](OBSERVABLES.md), [clock and regulator checks](audit/research-review.md) and [independent review record](reviews/README.md).
 
 | Command | Result from this review |
 |---|---|
 | `python3 checks/03-3.py` | The finite-cap exterior derivative in the stated test family vanishes at the vertex and equals $1/256$ at cap fraction $1/2$. |
-| `uv run --offline --script checks/03-4.py` | All nine residuals for the Appendix B transport and curvature expressions vanish in the test metric. If the dependency is not cached, omit `--offline`. |
+| `uv run --offline --script checks/03-4.py` | Nine flat-family residuals vanish. The round off-shell density matches direct curvature for arbitrary radial and time dependence, and two curved controls agree. If the dependency is not cached, omit `--offline`. |
 | `python3 checks/pair.py` | The direct sums through 100,000 modes agree with an independent evaluation inside the analytic tail bound. At $1/s=0.1$, the absolute difference is $2.50\times10^{-12}$. |
 | `python3 checks/05-2.py` | In the two-area comparison model, three choices of how to exhaust the same space give boost contrasts of −0.45970, −0.18388 and −0.02242. This diagnoses the need for a closed-sewing theorem. |
 | `python3 checks/determinant.py` | The Ricci-flat spin-2 and ghost contributions give $53/45$. A finite two-source test also separates a Hessian variation from an explicit source contact. |
