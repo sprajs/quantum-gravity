@@ -12,7 +12,7 @@ The paper asks how many *perfectly distinguishable* states of gravity fit inside
 
 **What the review found.** The classical distortion of the rays checks out, and one quantum calculation for a pair of ripples can be repeated exactly. The difficult leap is from those results to a count of *every possible state*. The paper gives a convergence argument for a known initial and final state, whereas counting all states requires another mathematical step. That closed-sewing step, the existence of the quantum clock when arbitrarily fine ripples are allowed, and a boundary defect in the finite-cap symplectic form remain open. Nothing in this review physically refutes finite-dimensional diamonds; the findings are proof gaps, defects in the construction as written, and model counterexamples.
 
-The sections below work through the thought experiment, the state-counting argument, the observable quantities, and the proposed tests. [Observable tests](OBSERVABLES.md) · [Nine-page print handbook](output/pdf/handbook.pdf) · [Technical review](README.md) · [Referee report](REFEREE.md)
+The sections below work through the thought experiment, the state-counting argument, the observable quantities, and the proposed tests. [Observable tests](OBSERVABLES.md) · [Illustrated handbook](output/pdf/handbook.pdf) · [Scientific paper](output/pdf/paper.pdf) · [Technical review](README.md) · [Referee report](REFEREE.md)
 
 ---
 
@@ -526,7 +526,8 @@ The beauty of Chandrasekaran's paper is that it is unusually concrete—which me
 Every claim and worked example above is backed by detailed derivations and runnable code in this project:
 
 - **Observable research program:** [OBSERVABLES.md](OBSERVABLES.md)
-- **Nine-page print handbook:** [output/pdf/handbook.pdf](output/pdf/handbook.pdf) ([LaTeX source](docs/handbook.tex))
+- [Illustrated handbook](output/pdf/handbook.pdf) and [LaTeX source](docs/handbook.tex)
+- [Scientific paper](output/pdf/paper.pdf) and [LaTeX source](docs/paper.tex)
 - **Overview & reading guide:** [README.md](README.md)
 - **Structured referee report & prioritized test program:** [REFEREE.md](REFEREE.md)
 - **Public review record (Fable challenges & Astra responses):** [reviews/README.md](reviews/README.md)

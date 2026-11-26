@@ -4,7 +4,7 @@ Venkatesa Chandrasekaran, arXiv:2611.34924v1. This review covers the 83-page ver
 
 [Start with Neon’s guide to the causal diamond, the gravitational clock and the state count.](EXPLAINED.md) Its worked examples explain why the finite pair amplitude and the proposed limit on information have different verification status.
 
-**Read or build the handbook.** Download the nine-page [print handbook](output/pdf/handbook.pdf) with its diagram, equations, worked examples and observable quantities, or edit the [LaTeX source](docs/handbook.tex). Run `make handbook` with TeX Live and latexmk to rebuild it.
+The [scientific paper](output/pdf/paper.pdf) develops the clock bound, the distinction between open sewing and a closed trace, and the consequences for black-hole entropy. The [illustrated handbook](output/pdf/handbook.pdf) follows the same physics through the geometry of a causal diamond and worked numerical examples. Both editions have editable LaTeX sources. Build them with `make paper handbook` using TeX Live and latexmk. [Paper source](docs/paper.tex) · [Handbook source](docs/handbook.tex)
 
 **Start with what can be measured or computed.** The [observable research program](OBSERVABLES.md) puts specified preparations, calculable quantities, experimental controls and discriminating tests ahead of historical debate. The [comparison of approaches](audit/approaches.md) identifies where candidate theories address the same observable and where their assumptions or ensembles differ.
 
