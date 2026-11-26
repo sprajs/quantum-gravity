@@ -603,12 +603,43 @@ A nonlocal frame transported through the interior of the spacelike cap can still
 
 \textbf{If the waist area varies.} Write $M=\langle r_S^2\rangle/\langle r_S\rangle$, where the brackets average over launch directions; the matched-radius preparation holds $M=1$. With a freely varying waist, the two-packet obstruction applies directly to the critical excess $\bar u_*-(1-\epsilon)M$. It also extends to the reading $\bar u_*$ itself when the exterior waist retains a uniform boost with area charge $A/(8\pi G_N)$, because that boost supplies a smooth generator for the area radius $\sqrt{A/(4\pi)}$. At the round waist, $\sqrt{A/(4\pi)}$ and $M$ share the same first variation, and the test packets leave the waist density unchanged pointwise in every direction, so subtracting $(1-\epsilon)\sqrt{A/(4\pi)}$ from the clock leaves the same mixed variation. Whether this boost is present depends on which outer frame the experiment retains (\href{https://arxiv.org/html/2611.34924v1\#S3.E51}{V1 boost charge, (3.51)}, \repo{audit/match-area.md}{varying-area calculation}).
 
-A sharp clock can still have a well-defined bracket with an individual smooth probe. In a vacuum Kasner universe, averaging the emitter position over the entire spatial torus at fixed waist radius gives a smooth generator that rescales the torus axes; a probe comparing the shape at nearby times has leading bracket $-0.00036096$ in units of $R^5/T^4$ at cap fraction $1/2$ and launch time $T$. For an individual emitter, distributional generators, preparations with additional radial boundary data, and the quantum clock domain remain open (\repo{audit/joint-jacobi.md}{Kasner probe and position average}).
+\textbf{The moving cap.} The curvature decomposition verifies the preprint's classical bulk density formula off shell for general smooth affine null metrics. A cap fixed at a prescribed fraction of the waist area radius moves as the waist varies. Tracking that endpoint in the shear contribution supplies the rim term missing from the printed finite-cap two-form for both polarizations at fixed generator labels. The cap's own Cauchy data and radiative flux still enter the full boundary problem. A perturbation in a narrowing strip illustrates why the rim matters. Its integrated interior strength can approach zero while the clock retains a finite response to its value at the rim (\repo{audit/rim-potential.md}{rim calculation}, \repo{audit/endpoint-inverse.md}{clock example}, \repo{audit/bulk-identity.md}{bulk identity}).
+
+A sharp clock can still have a well-defined bracket with an individual smooth probe. In a vacuum Kasner universe, averaging the emitter position over the entire spatial torus at fixed waist radius gives a smooth generator that rescales the torus axes. A probe comparing the shape at nearby times has leading bracket $-0.00036096$ in units of $R^5/T^4$ at cap fraction $1/2$ and launch time $T$ (\repo{audit/joint-jacobi.md}{Kasner probe and position average}). For a single emitter in a round flat diamond, the following construction identifies the gravitational wave that represents the mixed clock response.
 
 \note{Run \texttt{python3 -B checks/match\_packets.py} from the repository root. Its final line gives the limiting clock Hessian $-3/4$. The full suite runs with \texttt{make check}.}
 
+\clearpage
+\subsection{The wave that carries the sharp clock response}
+\label{subsec:weak-shell}
+Place the past tip at $t=0$, the waist at $t=1$, and the cap rim at radius $a=1/3$, with a marked emitter sky, a shared smooth metric across the cap and null sheet, and weighted waist radius $M=1$. Because shear enters quadratically, the clock excess $D=\bar u_*-(1-a)M$ has zero first derivative at flat space. Send a smooth reference wave $W$ through the diamond and ask how a second smooth probe $Z$ changes its clock response. Writing $H'_W$ and $H'_Z$ for the radial slopes of their optical strains gives the mixed second variation
+\[
+ \Omega(X_W,Z)=d^2D_{\rm flat}(W,Z)
+ =\frac14\left\langle\int_a^1 s(1-s)\,H'_W(s):H'_Z(s)\,ds\right\rangle .
+\]
+Here $s$ is the affine distance from the emitter, the colon contracts the two screen tensors, and the brackets average over the sky. The distributional field $X_W$ represents this mixed response through its first-slot Einstein symplectic pairing $\Omega=\int\delta\pi^{ij}\wedge\delta h_{ij}$ against smooth probes extending to the closed waist disk. Expressing optical strain through tidal curvature along each ray yields a conserved source on the cone; propagating it with the retarded-minus-advanced gravitational Green function gives $X_W$, which solves the linearized vacuum Einstein equations as a distribution (\repo{audit/weak-tidal.md}{tidal source and propagation}, \repo{audit/weak-boundary.md}{closed-disk pairing}).
+
+\begin{center}
+ \captionsetup{type=figure}
+ \includegraphics[width=0.98\linewidth]{../figures/weak-shell.png}
+ \caption{A sharp signal travels inward from the cap rim along $t+r=2a$, passes through the center, and expands outward along $t-r=2a$, crossing the waist disk at $r_*=1-2a=1/3$. The right panels show the singular parts of the transverse-traceless strain and its conjugate momentum near $r_*$. Narrowing the smoothing width sharpens the step and narrows the momentum spike while preserving its integral.}
+ \label{fig:weak-shell}
+\end{center}
+
+\textbf{What a smooth probe reads.} Let $B$ be the trace-free projection of $S=\mathrm{diag}(-1/2,-1/2,1)$ onto each ray's screen, so $\langle B:B\rangle=3/5$. The static quadrupolar tide with potential $-3S_{ij}x^ix^j/8$ has $H'=sB$; placing it in both slots gives $(3/20)\int_a^1 s^3(1-s)\,ds=29/4050$ (\repo{audit/weak-tidal.md}{smooth tidal probe}).
+
+For a reference wave with $H'_W(a)=B$, the wavefront in Figure~\ref{fig:weak-shell} carries an outward strain jump of $-2G_N B$ and a singular canonical momentum $B\,\delta(r-r_*)/(16\pi)$ in Cartesian components (with the radial delta under $r^2dr\,d\Omega$). Against a narrowing smooth quadrupole $Z$ with unit rim strain in this polarization, the momentum shell paired with $Z$'s strain and the strain step paired with its velocity each contribute $-1/60$, recovering the optical value $-1/30$ (\repo{audit/weak-cauchy.md}{waist data and signs}).
+
+The opposed packets of Figure~\ref{fig:rim-packets} probe a smoother reference wave with $H'_W(s)=[(s-a)^5+O((s-a)^6)]B$. Its metric step and momentum impulse vanish, yet a jump five derivatives higher in the radial wave profile still separates the two unit-integral packets and recovers $-3/4$ as their widths shrink (\repo{audit/weak-master.md}{radial solution and both packet limits}).
+
+\textbf{Curved first derivative.} The chosen curved diamond has a nonzero \emph{first} variation of the clock. In the plane wave of Figure~\ref{fig:joint-clock}, a local tidal measurement fixes the emitter's launch boost and proper time fixes the return. With these marks on the specified surrounding spacetime, smooth conserved probes give single-emitter brackets approaching $-0.060534$. A phase space with independently moving cap frames still requires its own boundary conditions and symplectic form (\repo{audit/weak-curved.md}{curved first variation and probe}).
+
+\note{Run \texttt{python3 -B checks/weak\_master.py} in the repository root. The last two lines give the packet limits $-1/30$ and $-3/4$. Run \texttt{make check} for the full suite.}
+
+\clearpage
 \subsection{What the new calculations settle}
-Several follow-up calculations now close specific classical checks while clarifying why classical boundary recovery and model clock constructions are strictly separate from proving finite rank in nonperturbative four-dimensional quantum gravity. First, the complete curvature decomposition verifies the preprint's classical bulk density formula off shell for general smooth affine null metrics. Second, when the waist area changes, a cap placed at a fixed \emph{fraction} of that area still moves; differentiating the shear contribution while tracking that moving endpoint supplies the exact rim term missing from the printed finite-cap two-form for both polarizations at fixed generator labels. That classical repair still leaves the cap's own Cauchy data and radiative boundary flux to be included, and it does not settle the quantum state count. To see why the cap rim still matters even classically, consider a perturbation confined to an ever thinner strip near the rim: its integrated interior strength can approach zero while the clock retains a finite response to its value at the rim. An inverse built solely from square-integrable interior sources can therefore reproduce bulk dynamics while missing what the clock reads (\repo{audit/rim-potential.md}{rim calculation}, \repo{audit/endpoint-inverse.md}{clock example}, \repo{audit/bulk-identity.md}{bulk identity}).
+
+A second reading raises a timing question. In the unit-radius quadrupole example, repeat the whole experiment a short time later, moving the reference wave along with the clock. For unit rim slope and a vanishing vertex jump, the bracket of the two linear responses approaches $+G_N/30$ when the second reading is later and $-G_N/30$ when it is earlier. Two shrinking windows can even share the same centre and variance and still give $-G_N/150$. Using the same window twice gives zero. The shape of the timing window is therefore part of this measurement (\repo{audit/weak-clock-contact.md}{exact calculation}).
 
 Can a quantum state fit inside the clock ceiling, and how many orthogonal states can do so? Two solved continuum models clarify what the quantum theory must still specify. In a bare fixed-background curved-target model, ever finer shear fluctuations drive even the lowest clock reading above any fixed ceiling, emptying every finite window. In a linearized model where the clock smooths the shear over a fixed range of angles and radii before squaring it, Wick bounds establish 63.7\% as a lower bound on the vacuum probability of passing a ceiling 20\% above the shear-free reading for that particular smoothed model (at $s = 10{,}000$ and cap fraction $1/4$); infinitely many mutually orthogonal preparations also fit because the fixed-resolution clock becomes increasingly insensitive to fine ripples. Both theorems hold strictly for their respective frozen-background or fixed-resolution model clocks. Neither settles nonperturbative four-dimensional finite rank, which depends on the physical ultraviolet response, nonlinear polarization domain, and coupled gravitational constraints of the original diamond (\repo{audit/clock-spectrum.md}{bare clock}, \repo{audit/clock-construction.md}{finite-resolution clock}).
 
@@ -621,6 +652,7 @@ A crossing-wave calculation provides an additional classical self-interaction be
  \label{fig:wave-transfer}
 \end{figure}
 
+\clearpage
 \subsection{Executable checks and provenance}
 All calculations underlying this handbook are documented in the \href{https://github.com/sprajs/quantum-gravity}{public review repository}. The \repo{audit/verification-scope.md}{verification inventory} gives the extent of the checks for each part of the preprint. The full verification suite runs via \texttt{make check}; three core benchmarks (Table~\ref{tab:checks}) require only the Python~3 standard library.
 
@@ -650,7 +682,6 @@ All calculations underlying this handbook are documented in the \href{https://gi
 \footnotesize
 \renewcommand{\section}[2]{\subsection*{References}}
 \renewcommand{\markboth}[2]{}
-\clearpage
 \begin{thebibliography}{9}\setlength{\itemsep}{1.5pt}\setlength{\parskip}{0pt}
 \bibitem{chandrasekaran2026}
   V.~Chandrasekaran, \textsl{An algebraic quantization of gravity from the null cone},

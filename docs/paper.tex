@@ -41,7 +41,7 @@
 \maketitle
 
 \begin{abstract}
-Does a bound on the size of a causal diamond limit the number of quantum states it can contain? We examine this question in Chandrasekaran's null-cone quantization of four-dimensional vacuum gravity (arXiv:2611.34924v1). Classical focusing bounds the corner area in terms of an affine clock. The affine bulk curvature density reproduces the Einstein action, and the single-harmonic Gaussian graviton-pair overlap sums to a dilogarithm. At finite cap size the proposed symplectic form has a nonzero exterior derivative. Varying the cap location recovers the missing term on the fixed-label shear sector. In a flat diamond, two narrowing vacuum quadrupoles on opposite sides of the cap rim leave its local geometry and that of the waist unchanged to first order. Their joined Einstein pairing with every fixed smooth perturbation tends to zero, while the mixed variation of the clock retains a finite contribution from the outer packet. This excludes a continuously differentiable family of smooth Hamiltonian vectors through flat space for the clock excess with local rim charges. Varying the radial profiles extends the obstruction to boundary terms with finitely many independent responses in this angular harmonic. If a uniform exterior boost generates the waist area, the same obstruction extends to the clock itself with freely varying area. In the quantum state count, the continuum clock must first admit a state below the prescribed reading. Even if it does, the reflected weight has a strictly positive lower bound on the accepted space, so finiteness of its ordinary trace is equivalent to finite rank. Convergence of amplitudes between normalizable states leaves that trace undetermined. A two-area model and a finite two-copy calculation isolate this trace problem. We derive the assumptions under which the Schwarzschild area packet reproduces Sen's spin-summed logarithmic coefficient. In a matter extension, reversing a scalar vacuum--pair phase reverses the leading semiclassical clock excess on both sheets at fixed mean energy.
+Does a bound on the size of a causal diamond limit the number of quantum states it can contain? We examine this question in Chandrasekaran's null-cone quantization of four-dimensional vacuum gravity (arXiv:2611.34924v1). Classical focusing bounds the corner area in terms of an affine clock. The affine bulk curvature density reproduces the Einstein action, and the single-harmonic Gaussian graviton-pair overlap sums to a dilogarithm. At finite cap size the proposed symplectic form has a nonzero exterior derivative. Varying the cap location recovers the missing term on the fixed-label shear sector. In a round flat diamond, narrowing vacuum quadrupoles exclude a continuously differentiable family of smooth Hamiltonian vectors for the clock excess when boundary terms have finitely many independent responses in the tested harmonic. For both polarizations, we construct a distributional Einstein field whose pairing with any smooth probe on the closed waist disk reproduces the mixed second variation of the clock excess. For a cap at one third of the waist radius, nonzero quadrupole shear at the rim produces a jump in the transverse-traceless spatial metric and a shell of canonical momentum. In the quantum state count, the continuum clock must first admit a state below the prescribed reading. Even if it does, the reflected weight has a strictly positive lower bound on the accepted space, so finiteness of its ordinary trace is equivalent to finite rank. Convergence of amplitudes between normalizable states leaves that trace undetermined. A two-area model and a finite two-copy calculation isolate this trace problem. We derive the assumptions under which the Schwarzschild area packet reproduces Sen's spin-summed logarithmic coefficient. In a matter extension, reversing a scalar vacuum--pair phase reverses the leading semiclassical clock excess on both sheets at fixed mean energy.
 \end{abstract}
 
 \section{Introduction}
@@ -528,7 +528,7 @@ where $\delta q_\pm$ are the metric variations in the two side charts. Holding t
 Kerr exterior spheres on a Boyer--Lindquist time slice~\cite{BoyerLindquist1967} cleanly separate these cases. Reversing the spin preserves the marked two-metric on the sphere, while in the cap-adapted frame the one-sided charge of the axial Killing field is $(8\pi G_N)^{-1}\int_C\mu_C\varpi_\phi=-J$, where $J$ is the signed angular momentum. Across a smooth seam in that same Kerr geometry, the adjacent face contributes $+J$, so the common rotation has zero net charge; joining opposite spins by the identity marking would violate angular momentum matching. Because a regular axisymmetric vacuum ball with no inner boundary has zero axial flux by the momentum constraint, this Kerr example specifically tests a vacuum exterior collar with an inner boundary (\repo{audit/match-rotation.md}{metric and exact charge integral}).
 
 \paragraph{Two packets with unchanged local frame data.}
-Take the flat tips at $(t,\mathbf x)=(0,\mathbf0),(2,\mathbf0)$. A vacuum quadrupole generated from the regular radial wave $[F(t+r)-F(t-r)]/r$ induces first-order conformal screen strain $G_F(v)B$ on the outgoing cone, with
+Take the flat tips at $(t,\mathbf x)=(0,\mathbf0),(2,\mathbf0)$. For $F\in C_c^\infty(0,2)$, a vacuum quadrupole generated from the regular radial wave $[F(t+r)-F(t-r)]/r$ induces first-order conformal screen strain $G_F(v)B$ on the outgoing cone, with
 \begin{equation}
  G_F(v)=\frac{F^{(4)}(2v)}{v}-\frac{2F^{(3)}(2v)}{v^2}+\frac{F''(2v)}{v^3},
  \qquad d^2D(W,Z)=\frac3{20}\int_a^1 v(1-v)G'_W G'_Z\,dv ,
@@ -563,7 +563,64 @@ At a round waist $dM=dr_A$ makes the area-subtracted clock critical on every tan
 
 A smooth source allows a direct Peierls calculation. In a globally hyperbolic vacuum Kasner spacetime with compact spatial $T^3$ sections, a smooth gauge-invariant probe of the torus shape has a nonzero classical Peierls bracket with the matched-radius clock \emph{averaged over emitter positions on the spatial torus}, with leading coefficient $-0.00036096\,R^5/T^4$ at $\epsilon=1/2$ (launch time $T$).
 At this symmetric background, the spatial position average and torus symmetries also collapse the clock differential to a smooth Hamiltonian tangent---locally a spatial rescaling invisible to gauge-invariant probes in a contractible patch and detected only by the global torus modulus (\repo{audit/joint-jacobi.md}{source and Hamiltonian response}).
-For the single sharp clock, a distributional inverse on a specified domain, its quantization and the rank of its spectral projector remain open. From the repository root, \texttt{python3 -B checks/match\_packets.py} reproduces the limit $-3/4$ and the first two higher-order coefficients $-9/2$ and $-63/4$.
+From the repository root, \texttt{python3 -B checks/match\_packets.py} reproduces the limit $-3/4$ and the first two higher-order coefficients $-9/2$ and $-63/4$.
+
+\subsection{A weak Einstein field for the spherical clock}
+\label{sec:weak}
+\paragraph{Two polarizations on the full sky.}
+Consider the lower cone of a unit round Minkowski diamond with a smooth shared cap, an emitter tetrad, and a smooth vacuum perturbation $W$. Write $k=(1,n)$ for a ray in sky direction $n$, $e_A$ for a parallel orthonormal screen basis, $H_h$ for the trace-free conformal screen strain of a perturbation $h$, and $C^{(1)}_{AkBk}[h]$ for its linearized Weyl tidal tensor. In vacuum, $D$ is a weighted integral of squared shear; because flat-space shear vanishes, variations of the cap, waist, and sky weights drop out of its Hessian. The vertex-normalized Jacobi equation gives $(H'_h)_{AB}(s)=-2s^{-2}\int_0^s t^2 C^{(1)}_{AkBk}[h](tk)\,dt$, so
+\begin{align}
+ {\cal L}_W[h] &:= d^2D_{\rm flat}(W,h)
+ =\frac14\left\langle\int_a^1 s(1-s)H'_W:H'_h\,ds\right\rangle
+ =\left\langle\int_0^1 K^{AB}(t,n)C^{(1)}_{AkBk}[h](tk)\,dt\right\rangle ,\nonumber\\
+ K^{AB}(t,n)&=-\frac{t^2}{2}\int_{\max(a,t)}^1
+                 \frac{1-s}{s}H'_W{}^{AB}(s,n)\,ds .
+ \label{eq:weak-tidal}
+\end{align}
+The final integral extends the vacuum functional off shell to arbitrary smooth metric tests (dropping Ricci focusing, which vanishes in vacuum) and incorporates the shear accumulated before the cap. Set $P_A^{\alpha\mu}=e_A^\alpha k^\mu-k^\alpha e_A^\mu$. In Cartesian coordinates, the adjoint of linearized curvature yields the compactly supported source
+\begin{equation}
+ J_W^{\mu\nu}(x)=-\tfrac12\partial_\alpha\partial_\beta
+ \left\langle\int_0^1 K^{AB}P_A^{\alpha\mu}P_B^{\beta\nu}
+                     \delta^{(4)}(x-tk)\,dt\right\rangle .
+ \label{eq:weak-source}
+\end{equation}
+Antisymmetry of $P_A$ implies $\partial_\mu J_W^{\mu\nu}=0$ everywhere, including at the cuts, while the vanishing screen trace of $K$ makes $J_W$ trace-free. Let $E$ be the retarded-minus-advanced inverse of $\partial_t^2-\Delta$ on Minkowski spacetime. Green's identity, extended to the compact distribution~\eqref{eq:weak-source} by duality~\cite{FewsterHunt2013,Baer2015}, gives the de Donder field
+\begin{equation}
+ X_{W,\mu\nu}=32\pi G_N E J_{W,\mu\nu},\qquad
+ \Omega(X_W,h)={\cal L}_W[h]
+ \label{eq:weak-field}
+\end{equation}
+for every smooth vacuum test $h$, with $\Omega=\int\delta\pi^{ij}\wedge\delta h_{ij}$. Because $dD=0$ at flat space, $X_W$ represents the directional variation of the clock differential along $W$ rather than a first-order clock generator (\repo{audit/weak-tidal.md}{tidal kernel and sign}).
+
+\paragraph{The shell on the waist disk.}
+In the quadrupole sector of~\eqref{eq:packet-hessian}, set $f(s)=F(2s)$ and $Lf:=G'_F$ (differentiated in $s$). For smooth profiles $f_X,f_Z\in C_c^\infty(0,1)$, the transverse-traceless Einstein pairing reduces to $3\langle f_X^{(9)},f_Z\rangle/(5120 G_N)$ and extends by duality to distributional $f_X$. For $f_W\in C_c^\infty(0,1)$ and the formal adjoint $L^*$ with respect to $ds$, the radial Hamilton equation is
+\begin{equation}
+ f_X^{(9)}=256G_N L^*\!\left[\mathbf1_{(a,1)}s(1-s)G'_W(s)\right].
+ \label{eq:weak-master}
+\end{equation}
+Its primitive vanishing for $s<a$ has a fourth-derivative jump of $-16G_N(1-a)G'_W(a)$ at $s=a$. On the waist slice $t=1$, for $a=1/3$ and unit rim slope ($G'_W(a)=1$), the wavefront $t-r=2a$ reaches $r=1/3$ with outward metric jump and singular canonical momentum in Cartesian transverse-traceless coordinates
+\begin{equation}
+ [h_{ij}]_{r=1/3}=-2G_N B_{ij},\qquad
+ (\pi^{ij})_{\rm sing}=\frac{B^{ij}}{16\pi}\,\delta(r-1/3),
+ \label{eq:weak-shell}
+\end{equation}
+where the radial delta acts against $d^3x=r^2dr\,d\Omega$. In the single shrinking pulse of~\eqref{eq:joint-hessian}, the metric jump and momentum shell each contribute $-1/60$, recovering $-1/30$. For the opposed pulses of~\eqref{eq:compensated-hessian}, the reference slope instead vanishes to fifth order with unit leading coefficient at $a$; the ninth derivative $f_X^{(9)}$ then jumps by $-1280 G_N$, yielding $-3/4$ in the same symplectic form (\repo{audit/weak-master.md}{radial inverse}, \repo{audit/weak-normalization.md}{ADM normalization}, \repo{audit/weak-cauchy.md}{waist data}).
+
+\paragraph{Which probes can measure the response?}
+Contracting the source~\eqref{eq:weak-source} toward the centre of the diamond and smoothing it inside the open diamond preserves conservation, and finite propagation confines each approximant's Cauchy data strictly inside the waist disk. Their distributional limit acts on smooth probes defined up to the \emph{closed} waist disk; any two smooth extensions agreeing on the closed disk share all boundary jets and yield the same pairing. Under the shared-metric hypothesis across the cap and null sheet, conservation transports the sum of their smooth currents to the waist disk before the limit is taken. This defines a joined weak pairing without restricting a singular field to a characteristic face (\repo{audit/weak-boundary.md}{regional construction}).
+
+On the complete master line, tests with nonzero vertex jets detect an additional point-vertex source; the full-line quadrupole response has finite transverse-traceless wave energy precisely when $G'_W(a)=0$ and $\int_a^1 (s^{-1}-1)G'_W(s)\,ds=0$ (\repo{audit/weak-normalization.md}{vertex contribution}). In the free Minkowski positive-frequency representation, the unit-slope quadrupole rim at $a=1/3$ contributes $[G_N/(15\pi)]\log(\Lambda/\kappa)+O(1)$ to the localized one-particle quadratic form $|\Omega(X,JX)|$, where $J$ is the positive-frequency complex structure, $\Lambda$ is the ultraviolet cutoff, and $\kappa$ is a fixed reference frequency. Pairing with a smooth second probe still yields a finite classical bracket, whereas two sharp probes require a distributional product or a joint limiting prescription. For a spherical electric Weyl measurement, for example, two positive, centred timing profiles of width $d$ and equal variance can have a cross-bracket proportional to $d^{-4}$, while identical profiles give zero by antisymmetry. That contact calculation tests curvature; the mutual bracket of two sharp affine clocks and the spectrum of a nonlinear clock remain open (\repo{audit/weak-fock.md}{frequency integral}, \repo{audit/weak-domain.md}{curvature contact term}).
+
+For the clock response itself, translate the emitter and the reference wave together. Let $L_\tau$ denote the resulting Hessian functional at delay $\tau$ in the decaying radiative quadrupole sector. For $a=1/3$, unit rim slope and vanishing vertex jump, the calibrated one-sided limits are
+\[
+   \lim_{\tau\to0^\pm}\{L_0,L_\tau\}=\pm G_N/30 .
+\]
+The sign follows from the translation of the strain discontinuity through the momentum impulse. Two smooth timing windows with the same mean and variance can give a limiting cross-bracket of $-G_N/150$, while identical windows give zero at every width (\repo{audit/weak-clock-contact.md}{full-line derivation and exact check}).
+
+\paragraph{First derivatives at curved backgrounds.}
+Unlike the stationary flat diamond, a curved background already admits a nonzero first derivative of the clock. On the symmetric plane wave of Section~\ref{sec:joint}, calibrating the emitter by its locally measured Weyl superenergy $E_{ij}E^{ij}+B_{ij}B^{ij}$ (with $E,B$ the electric and magnetic Weyl tensors in the observer's frame) makes the linearized clock source conserved at the background. In a globally hyperbolic continuation, compact smooth conserved probes realize the first-variation limit $-0.060534$ above as the bracket with the single-emitter clock (\repo{audit/weak-curved.md}{calibration and probes}). For this Rosen metric the Fourier--Laplace kernel for all ten metric components reduces to a degree-four matrix polynomial after scalar propagation and parallel transport are factored out. The polynomial terminates because each connection insertion raises the total index grade and a rank-two tensor has only five such grades. The inverse has support on and inside the null cone, consistent with the plane-wave analysis of Harte~\cite{Harte2013}. The measured bracket uses the complete conserved clock current (\repo{audit/weak-rosen-green.md}{tensor kernel}, \repo{audit/weak-curved-closure.md}{closed-waist construction}).
+
+A short Schwarzschild diamond illustrates how this first-order response depends on preparation. At a marked pole at $r=4m$ (with $m$ the mass in length units), hold fixed a curvature-based launch-radius reading and the weighted waist radius $R\ll m$. For cap fraction $1/2$, a compactly continued outgoing vacuum quadrupole gives $-39R^5/(204800m^4)+O(R^6/m^5)$ in the normalization of the \repo{audit/weak-schwarzschild.md}{curvature and wave calculation}, whereas holding fixed the launch value of $C_{abcd}C^{abcd}$ instead makes the $O(R^5)$ term vanish for every smooth vacuum perturbation. Both examples are linearized first-variation measurements at a specified background event.
 
 \subsection{Existence and rank of two specified clocks}
 Two continuum model clocks give opposite, rigorous answers within their own assumptions, illustrating why neither a frozen-background obstruction nor a fixed-resolution construction decides finite rank for the full four-dimensional theory. First, in a bare model with the null bracket frozen on a smooth curved polarization background, one retains both polarizations, the nonlinear target metric in the focusing, and the outer exponential; the weak uncertainty bound for two radial currents then yields a state-independent focusing floor proportional to the square of the radial cutoff, emptying every fixed finite-reading window. Second, a continuum construction in linearized gravity smooths the shear in angle and radius at a fixed physical resolution before squaring it; Wick contraction bounds the vacuum exponential moment, yielding a vacuum acceptance lower bound of $0.6373$ at $s=10{,}000$, cap ratio $1/4$, and a ceiling $1.2$ times the shear-free reading, while exciting sufficiently weakly coupled modes proves infinite rank above the vacuum mean. Furthermore, restoring the nonlinear hyperbolic target metric introduces genuine domain instability: quantizing a smooth fixed-density radiative truncation gives a canonical pair through a late pulse, while an arbitrarily small second polarization on the earlier patches collapses the dense finite-form domain to $\{0\}$. Transferring that result requires controlling quantization before restriction. Together, these examples isolate a dynamical question about the ultraviolet response of the clock in Ref.~\cite{Chandrasekaran2026}: raising precision at fixed smoothing width and removing that width are distinct limits, and controlling the nonperturbative gravitational constraints and operator domains remains open (\repo{audit/clock-spectrum.md}{bare model}, \repo{audit/clock-construction.md}{smoothed model}, \repo{audit/clock-domain-jump.md}{nonlinear domain counterexample}).
@@ -583,7 +640,7 @@ The two-dimensional JT gravity control confirms that a bounded clock alone permi
 In four dimensions, the specified single-harmonic Gaussian pair overlap~\eqref{eq:pair-sum} sums exactly to~\eqref{eq:pair-limit} and exhibits a genuine nonuniform weak-coupling expansion~\eqref{eq:pair-asymp}.
 Around a regular classical saddle, the stationary-phase equations and fixed-resolution one-loop response have the expected form (with continuum renormalization left open), and the local graviton-and-ghost curvature coefficient $53/45$ converts arithmetically to Sen's spin-summed logarithmic coefficient $106/45$.
 
-The finite-cap defect calls for a boundary two-form derived with the cap and its rim allowed to vary. Independently, the compensated vacuum-packet family excludes a $C^1$ assignment of smooth Hamiltonian vectors through flat space for the clock excess under the matching and boundary hypotheses of Section~\ref{sec:joint}, and retaining the exterior total-area boost extends this obstruction to a single sharp clock with freely varying waist. The spectral floors found in two regulated shear models motivate a separate continuum test of the gravitational clock. Even a construction of a nonzero clock projection would leave a second problem: proving a finite closed trace independently of the proposed state count. Establishing that trace and deriving the area-packet measure would permit a genuinely microscopic comparison with the Schwarzschild entropy.
+The finite-cap defect calls for a boundary two-form derived with the cap and its rim allowed to vary. Independently, the compensated vacuum-packet family excludes a $C^1$ assignment of smooth Hamiltonian vectors through flat space for the clock excess under the matching and boundary hypotheses of Section~\ref{sec:joint}, and retaining the exterior total-area boost extends this obstruction to a single sharp clock with freely varying waist. On the filled flat diamond, the directional variation of the clock differential nevertheless admits the distributional Einstein field~\eqref{eq:weak-field}, whose waist-disk shell~\eqref{eq:weak-shell} acts on smooth probes extending to the closed boundary. Defining the nonlinear clock on an independently marked finite region, together with its quantum spectral projection, still requires specifying a domain for that clock. The spectral floors found in two regulated shear models motivate a separate continuum test of the gravitational clock. Even a construction of a nonzero clock projection would leave a second problem: proving a finite closed trace independently of the proposed state count. Establishing that trace and deriving the area-packet measure would permit a genuinely microscopic comparison with the Schwarzschild entropy.
 
 \section{Reproducibility, Data, and Authorship Disclosure}
 \label{sec:repro}
@@ -746,6 +803,24 @@ E.~Colafranceschi, X.~Dong, D.~Marolf, and Z.~Wang,
 \emph{Algebras and Hilbert spaces from gravitational path integrals: Understanding Ryu--Takayanagi/HRT as entropy without AdS/CFT},
 JHEP \textbf{10} (2024) 063,
 \href{https://arxiv.org/abs/2310.02189}{arXiv:2310.02189}.
+
+\bibitem{FewsterHunt2013}
+C.~J.~Fewster and D.~S.~Hunt,
+\emph{Quantization of linearized gravity in cosmological vacuum spacetimes},
+Rev.\ Math.\ Phys.\ \textbf{25}, 1330003 (2013),
+\href{https://arxiv.org/abs/1203.0261v4}{arXiv:1203.0261v4}.
+
+\bibitem{Harte2013}
+A.~I.~Harte,
+\emph{Tails of plane wave spacetimes: Wave-wave scattering in general relativity},
+Phys.\ Rev.\ D \textbf{88}, 084059 (2013),
+\href{https://arxiv.org/abs/1309.5020v2}{arXiv:1309.5020v2}.
+
+\bibitem{Baer2015}
+C.~B\"ar,
+\emph{Green-hyperbolic operators on globally hyperbolic spacetimes},
+Commun.\ Math.\ Phys.\ \textbf{333}, 1585 (2015),
+\href{https://arxiv.org/abs/1310.0738v2}{arXiv:1310.0738v2}.
 
 \bibitem{FewsterRoman2003}
 C.~J.~Fewster and T.~A.~Roman,
