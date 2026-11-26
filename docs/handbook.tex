@@ -1,258 +1,614 @@
-% Editable, self-contained LaTeX source. Compile with pdfLaTeX (twice) or Tectonic.
+% Self-contained LaTeX source for the illustrated scientific handbook.
+% Compile with pdfLaTeX (twice) or latexmk -pdf.
 \RequirePackage{fix-cm}
-\documentclass[11pt,a4paper]{article}
-\usepackage[a4paper,left=27mm,right=27mm,top=24mm,bottom=23mm,headheight=15pt]{geometry}
-\usepackage{amsmath,amssymb,array,booktabs,xcolor,fancyhdr,hyperref}
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,left=23mm,right=23mm,top=20mm,bottom=19mm,headheight=19pt]{geometry}
+\usepackage{amsmath,amssymb,array,booktabs,xcolor,fancyhdr,titlesec,caption,tikz,hyperref}
+\usetikzlibrary{arrows.meta,calc,positioning}
+
+\linespread{1.05}
+
+% Restrained scientific palette
 \definecolor{ink}{HTML}{172F3D}
 \definecolor{sea}{HTML}{006863}
-\definecolor{mist}{HTML}{ECF4F2}
-\definecolor{muted}{HTML}{485D63}
-\hypersetup{colorlinks=true,urlcolor=sea,linkcolor=sea,pdftitle={How many states fit inside a causal diamond?},pdfauthor={Null-cone research review},pdfsubject={A reader's guide to arXiv:2611.34924v1}}
-\pagestyle{fancy}\fancyhf{}
-\fancyhead[L]{\sffamily\small\color{muted}GRAVITY ON THE NULL CONE}
-\fancyhead[R]{\sffamily\small\color{muted}Research handbook}
-\fancyfoot[L]{\sffamily\small\color{muted}26 November 2026\quad /\quad Review of version 1}
-\fancyfoot[R]{\sffamily\bfseries\color{sea}\thepage}
-\renewcommand{\headrulewidth}{0.35pt}
-\setlength{\parindent}{0pt}\setlength{\parskip}{6pt plus 1pt}
-\setlength{\abovedisplayskip}{8pt plus 1pt}\setlength{\belowdisplayskip}{8pt plus 1pt}
-\raggedbottom\color{ink}
-\newcommand{\kicker}[1]{{\sffamily\bfseries\small\color{sea}\MakeUppercase{#1}}\par}
-\newcommand{\chapterpage}[3]{\newpage\pdfbookmark[1]{#2}{#1}\kicker{#3}\vspace{2pt}{\sffamily\bfseries\fontsize{23}{27}\selectfont #2\par}\vspace{4pt}}
-\newcommand{\subhead}[1]{\par\addvspace{5pt}{\sffamily\bfseries\large\color{sea}#1\par}\nopagebreak\vspace{-3pt}}
-\newcommand{\panel}[2]{\par\addvspace{5pt}\begingroup\setlength{\fboxsep}{9pt}\noindent\colorbox{mist}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\sffamily\bfseries\color{sea}#1\par\vspace{3pt}\normalfont\color{ink}#2}}\par\endgroup}
+\definecolor{seadeep}{HTML}{004C48}
+\definecolor{mist}{HTML}{EDF5F3}
+\definecolor{muted}{HTML}{4A6067}
+\definecolor{rulecol}{HTML}{C6D8D5}
+\definecolor{ochre}{HTML}{9A5B13}
+\definecolor{ochrelight}{HTML}{FBF5EC}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=sea,
+  linkcolor=seadeep,
+  citecolor=seadeep,
+  pdftitle={Causal Diamonds, Null-Cone Clocks, and Quantum State Counts},
+  pdfauthor={Null-cone gravity technical review},
+  pdfsubject={Illustrated scientific companion to arXiv:2611.34924v1}
+}
+
+% Running headers and footers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}Null-Cone Gravity Handbook}
+\fancyhead[R]{\sffamily\footnotesize\color{muted}\nouppercase{\leftmark}}
+\fancyfoot[L]{\sffamily\footnotesize\color{muted}Companion to arXiv:2611.34924v1 (v1, 25 November 2026)}
+\fancyfoot[R]{\sffamily\bfseries\small\color{sea}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{rulecol}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\sectionmark}[1]{\markboth{\thesection.\ #1}{}}
+
+\fancypagestyle{firstpage}{
+  \fancyhf{}
+  \fancyfoot[L]{\sffamily\footnotesize\color{muted}Technical companion to Chandrasekaran, arXiv:2611.34924v1 (reviewed 26 November 2026)}
+  \fancyfoot[R]{\sffamily\bfseries\small\color{sea}\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% Clean scholarly section styling
+\titleformat{\section}
+  {\sffamily\bfseries\large\color{ink}}
+  {\color{sea}\thesection}{0.65em}{}
+  [\vspace{2.5pt}{\color{rulecol}\titlerule[0.55pt]}]
+\titlespacing*{\section}{0pt}{13pt plus 3pt minus 2pt}{5.5pt plus 1.5pt}
+
+\titleformat{\subsection}
+  {\sffamily\bfseries\normalsize\color{seadeep}}
+  {\thesubsection}{0.55em}{}
+\titlespacing*{\subsection}{0pt}{9pt plus 2pt minus 1pt}{3pt plus 1pt}
+
+% Captions
+\captionsetup{
+  font={small,color=muted},
+  labelfont={sf,bf,color=seadeep},
+  margin=6pt,
+  skip=5pt
+}
+
+% Paragraph, float, and equation spacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4.3pt plus 1.1pt minus 0.4pt}
+\setlength{\abovedisplayskip}{5.5pt plus 1.5pt minus 1pt}
+\setlength{\belowdisplayskip}{5.5pt plus 1.5pt minus 1pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\raggedbottom
+\color{ink}
+
+% Semantic helpers
 \newcommand{\repo}[2]{\href{https://github.com/sprajs/quantum-gravity/blob/main/#1}{#2}}
-\newcommand{\source}[1]{\vfill\noindent{\color{muted}\rule{\linewidth}{0.35pt}}\par\vspace{-3pt}{\small\sffamily #1\par}}
+\newcommand{\arxiv}[2]{\href{https://arxiv.org/abs/#1}{#2}}
 \newcommand{\tr}{\operatorname{Tr}}
 \newcommand{\rank}{\operatorname{rank}}
-\newcommand{\HH}{\mathcal H}
+\newcommand{\HH}{\mathcal{H}}
+\newcommand{\note}[1]{\par\vspace{1pt}{\raggedright\footnotesize\sffamily\color{muted}#1\par}}
+
+\newcommand{\notationstrip}[1]{%
+  \par\addvspace{5pt}%
+  \noindent\colorbox{mist}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \footnotesize #1%
+    }%
+  }\par\addvspace{5pt}%
+}
+
 \begin{document}
-\pdfbookmark[0]{How many states fit inside a causal diamond?}{start}
-\kicker{A reader's guide to an open problem}
-{\sffamily\bfseries\fontsize{30}{34}\selectfont How many states fit inside\\a causal diamond?\par}
+\thispagestyle{firstpage}
+\pdfbookmark[0]{Causal Diamonds, Null-Cone Clocks, and Quantum State Counts}{start}
+
+% ---- Title Block ----
+{\sffamily\bfseries\fontsize{21}{24.5}\selectfont\color{ink}
+Causal Diamonds, Null-Cone Clocks,\\and Quantum State Counts\par}
 \vspace{3pt}
-{\large A flash of light defines a laboratory. Can the gravity inside it limit how much information the laboratory can hold?\par}
+{\normalsize\color{muted}An illustrated research companion to the technical review of Venkatesa Chandrasekaran's
+\arxiv{2611.34924v1}{\textsl{An algebraic quantization of gravity from the null cone}} (\texttt{arXiv:2611.34924v1})\par}
+\vspace{3pt}
+{\color{sea}\rule{\linewidth}{1.0pt}}
+\vspace{4pt}
 
-Choose two events on an observer's path. Light leaves the first event and can return by the second. The region accessible between these events is a \emph{causal diamond}. A gravitational wave distorts a ring of neighbouring light rays and slows its expansion. The rays then travel farther to open out to a given area. The paper turns that run from cap to corner into a clock built from the geometry itself.
+% ---- Opening: physical question and conclusions upfront ----
+Choose two events along an observer's worldline. Light emitted from the first event expands outward until it meets the past light cone of the second event on a two-dimensional sphere, the \emph{corner} of the region. The spacetime volume between these two cones is a \emph{causal diamond} (Figure~\ref{fig:diamond}): every event inside can be influenced from the past tip and observed before the future tip. Because gravitational radiation distorts and focuses light rays, the geometry of the diamond's null boundary records the gravity inside it. The physical question examined in Chandrasekaran's 83-page preprint~\cite{chandrasekaran2026} is whether this gravitational focusing limits the number of \emph{perfectly distinguishable}---mutually orthogonal---quantum states that can fit inside a four-dimensional causal diamond of bounded geometric size, and whether counting those states accounts for the entropy of a Schwarzschild black hole.
 
-\begin{center}
-\setlength{\unitlength}{0.85mm}
-\begin{picture}(161,64)
-\color{sea}\linethickness{1.1pt}
-\put(51,4){\line(1,1){27}}\put(51,4){\line(-1,1){27}}
-\put(24,31){\line(1,1){27}}\put(78,31){\line(-1,1){27}}
-\color{muted}\linethickness{0.45pt}
-\multiput(25,31)(3,0){18}{\line(1,0){1.5}}
-\put(45,10){\line(1,0){12}}\put(45,52){\line(1,0){12}}
-\put(12,9){\vector(0,1){44}}
-\put(4,55){\makebox(16,4){\sffamily\small time}}
-\color{sea}\put(51,4){\circle*{1.8}}\put(51,58){\circle*{1.8}}
-\put(78,31){\circle*{1.8}}\put(24,31){\circle*{1.8}}
-\color{muted}\put(55,58){\line(1,0){26}}
-\put(81,31){\line(1,0){7}}\put(55,4){\line(1,0){26}}
-\put(84,58){\makebox(0,0)[l]{\sffamily\small Future tip (final reception)}}
-\put(91,31){\makebox(0,0)[l]{\sffamily\small Corner where the cones meet}}
-\put(84,4){\makebox(0,0)[l]{\sffamily\small Past tip (initial flash)}}
-\end{picture}\par
-{\small\color{muted}A spatial slice through the drawing runs horizontally. The two outer points at the widest slice represent a sphere in three spatial dimensions. The short lines near the tips mark the caps.}\par
-\end{center}
+Classical focusing bounds the area. A quantum count requires something further: even an exactly known clock reading may be shared by many distinguishable states. We follow that distinction from the geometry of a single light ray to an explicitly summable graviton-pair amplitude and a proposed black-hole entropy. A boundary term survives at finite cap size, and convergence between fixed preparations leaves the closed trace undetermined. The four-dimensional state count remains open.
 
-The question is about \emph{perfectly distinguishable} preparations, represented by orthogonal quantum states. Classically, a maximum clock reading puts an upper limit on the area of the sphere. Counting preparations also requires knowing how many independent states can share an allowed reading.
+\notationstrip{%
+  \textbf{\sffamily\color{seadeep}Notation at a glance.}
+  Units set $c = k_B = 1$, with Newton's constant $G_N$ and reduced Planck constant $\hbar$.
+  Along a null ray: affine parameter $u$; area radius $r(u)$ (area per unit solid angle $r^2$); shear $\sigma_{AB}$; cap fraction $0<\epsilon<1$; cap-normalized clock reading $u_*$ and its angular average $\bar u_*$; corner sphere $S$ of total area $A$.
+  Quantum quantities: dimensionless area $s = A/(4G_N\hbar)$ and coupling $x = 1/s$; quantum clock operator $T$ and spectral window projector $P_\ell = \mathbf{1}_{[0,\ell]}(T)$; Gaussian area filter $f_b(s)=\exp[-(s-s_b)^2/(4s_b)]$ and reflected weight $W = e^{-s}f_b(s)$.%
+}
 
-\panel{What the review finds}{Classical focusing and a particular quantum correlation can be reproduced. The four-dimensional state count still needs a quantum clock that admits physical states and a bound on the number it admits. The review identifies proof gaps, defects in the construction as written and model counterexamples---not a physical refutation of finite-dimensional diamonds. The following pages work through the calculations and testable quantities.}
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[scale=0.90, >=Stealth, font=\sffamily\small]
+    % Left: Causal diamond diagram
+    \coordinate (P) at (0,0);
+    \coordinate (F) at (0,5.0);
+    \coordinate (L) at (-2.5,2.5);
+    \coordinate (R) at (2.5,2.5);
 
-\source{An AI-assisted technical review of Venkatesa Chandrasekaran, \href{https://arxiv.org/abs/2611.34924v1}{\textsl{An algebraic quantization of gravity from the null cone}}, version 1, 25 November 2026.}
+    \fill[mist] (P) -- (R) -- (F) -- (L) -- cycle;
+    \draw[muted, dashed, line width=0.55pt] (L) -- (R);
 
-\chapterpage{focusing}{How light measures a region}{Classical geometry}
-Label the rays by their launch directions. On a small bundle, write the cross-sectional area per unit solid angle as $r^2$. The function $r(u)$ is its area radius. The parameter $u$ is affine, which means a freely moving light ray obeys the geodesic equation without a parameter-dependent acceleration. A boundary frame fixes how to compare directions and readings.
+    % Caps
+    \coordinate (PcL) at (-0.55,0.55);
+    \coordinate (PcR) at (0.55,0.55);
+    \coordinate (FcL) at (-0.55,4.45);
+    \coordinate (FcR) at (0.55,4.45);
+    \fill[white] (P) -- (PcR) -- (PcL) -- cycle;
+    \fill[white] (F) -- (FcR) -- (FcL) -- cycle;
+    \draw[ink, line width=0.9pt] (PcL) -- (PcR);
+    \draw[ink, line width=0.9pt] (FcL) -- (FcR);
 
-On a twist-free bundle in four-dimensional vacuum Einstein gravity, the area radius obeys the focusing equation
+    % Null walls
+    \draw[sea, line width=1.15pt] (PcL) -- (L) -- (FcL);
+    \draw[sea, line width=1.15pt] (PcR) -- (R) -- (FcR);
+    \draw[sea, dotted, line width=0.8pt] (P) -- (PcL) (P) -- (PcR) (F) -- (FcL) (F) -- (FcR);
+
+    % Affine ray arrow
+    \draw[ochre, line width=1.1pt, ->] (0.55,0.55) -- (1.60,1.60);
+    \node[ochre, anchor=north west, inner sep=1.5pt, font=\sffamily\scriptsize] at (1.30,1.40) {affine parameter $u$};
+
+    % Vertices
+    \fill[sea] (P) circle (1.7pt) (F) circle (1.7pt) (L) circle (2pt) (R) circle (2pt);
+
+    % Time axis
+    \draw[muted, line width=0.65pt, ->] (-3.35,0.55) -- (-3.35,4.40);
+    \node[muted, above, font=\sffamily\scriptsize] at (-3.35,4.40) {time};
+
+    % Labels
+    \node[ink, right, font=\sffamily\footnotesize] at (0.2,5.0) {Future tip (final reception)};
+    \node[muted, right, font=\sffamily\scriptsize] at (0.68,4.45) {future cap};
+    \node[ink, right, font=\sffamily\footnotesize] at (2.72,2.5) {Corner $S$ (area $A$)};
+    \draw[muted, line width=0.45pt] (2.58,2.5) -- (2.70,2.5);
+    \node[muted, right, font=\sffamily\scriptsize] at (0.68,0.55) {past cap (radius $\epsilon r_S$)};
+    \node[ink, right, font=\sffamily\footnotesize] at (0.2,0.0) {Past tip (initial flash)};
+    \node[muted, font=\sffamily\scriptsize] at (0,2.74) {spatial waist};
+
+    % Right inset: shear focusing of a light-ray bundle
+    \begin{scope}[xshift=8.2cm, yshift=0.6cm]
+      \draw[rulecol, rounded corners=3pt, fill=white, line width=0.6pt] (-1.95,-0.55) rectangle (2.95,3.75);
+      \node[seadeep, font=\sffamily\bfseries\footnotesize, anchor=north west] at (-1.78,3.60) {Shear focuses a ray bundle};
+
+      \draw[muted, dashed, line width=0.6pt] (0.50,2.22) circle (0.76);
+      \draw[ochre, line width=1.1pt, fill=ochrelight, fill opacity=0.65] (0.50,2.22) ellipse (1.00 and 0.50);
+      \draw[ochre, ->, line width=0.65pt] (1.16,2.22) -- (1.72,2.22);
+      \draw[ochre, ->, line width=0.65pt] (-0.16,2.22) -- (-0.72,2.22);
+      \draw[ochre, ->, line width=0.65pt] (0.50,3.04) -- (0.50,2.65);
+      \draw[ochre, ->, line width=0.65pt] (0.50,1.40) -- (0.50,1.79);
+
+      \node[ink, font=\sffamily\scriptsize, align=left, anchor=north west] at (-1.78,1.22)
+        {A passing wave stretches one axis\\and squeezes the other ($\sigma_{AB}$).\\Since $r''=-\tfrac{1}{2}r\,\sigma^2\le 0$, the area\\lags behind the dashed shear-free\\circle, lengthening the clock $u_*$.};
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Left: cross-section of a four-dimensional causal diamond. A spatial slice runs horizontally; the two outer points at the waist represent a two-sphere $S$ of total area $A$. Truncating each cone near its vertex yields spacelike caps at radius fraction $\epsilon$. Right: gravitational shear $\sigma_{AB}$ distorts a circular pencil of rays into an ellipse and slows its area growth, lengthening the affine distance $u_*$ required to reach a given corner radius.}
+  \label{fig:diamond}
+\end{figure}
+
+% ============================================================================
+\section[Null Geometry and Shear Focusing]{Null Geometry, Shear Focusing, and Affine Normalization}
+\label{sec:geometry}
+
+Label the light rays leaving the past tip of the diamond by their launch directions on the sky. For a narrow bundle of neighbouring rays, write the cross-sectional area per unit solid angle as $r^2$, calling $r(u)$ its \emph{area radius}. Here $u$ is an affine parameter: a freely falling light ray satisfies the geodesic equation with no parameter-dependent acceleration. Fixing a boundary reference frame specifies how launch directions and affine readings are compared across the sphere.
+
+\subsection{How shear slows expansion}
+In four-dimensional vacuum Einstein gravity, a twist-free bundle of null rays obeys the Raychaudhuri focusing equation
+\begin{equation}
+  \frac{d^2 r}{du^2} = -\frac{r}{2}\,\sigma_{AB}\sigma^{AB}.
+  \label{eq:focusing}
+\end{equation}
+The symmetric, trace-free tensor $\sigma_{AB}$ is the \emph{shear} of the bundle: it measures how a passing gravitational wave changes the shape of the cross-section at fixed area, stretching one transverse axis while compressing the perpendicular axis (Figure~\ref{fig:diamond}, right). Because the squared contraction $\sigma_{AB}\sigma^{AB}$ is everywhere nonnegative, gravitational radiation can only decelerate the expansion of light rays, never accelerate it. A round, shear-free bundle satisfies $r'' = 0$ and opens out linearly in $u$.
+
+\subsection{An affine clock and its normalization}
+To avoid the coordinate singularity at the vertex, cut the expanding cone from the past tip (the preprint's incoming cone) at a spacelike cap where each ray has radius $\epsilon r_S$, with $0 < \epsilon < 1$ and $r_S$ the ray's area radius at the corner $S$. Let $u_c$ and $u_S$ denote the affine coordinates at the cap and corner, respectively. Integrating~\eqref{eq:focusing} twice from $u_c$ to $u_S$ gives
+\begin{equation}
+  \underbrace{r'(u_c)(u_S - u_c)}_{u_*}
+  = (1 - \epsilon)r_S
+  + \frac{1}{2}\int_{u_c}^{u_S} (u_S - w)\,r(w)\,\sigma_{AB}\sigma^{AB}(w)\,dw.
+  \label{eq:clock}
+\end{equation}
+Notice the role of \textbf{normalization}. Along any null geodesic, an affine parameter is defined only up to an overall linear rescaling $u \mapsto \lambda u + u_0$ ($\lambda > 0$). Under such a change of units, the elapsed interval scales as $(u_S - u_c) \mapsto \lambda(u_S - u_c)$, while the cap expansion rate scales inversely as $r'(u_c) \mapsto \lambda^{-1} r'(u_c)$. Doubling the rate at which the affine parameter ticks therefore doubles the coordinate span while halving the initial slope, leaving their product $u_* = r'(u_c)(u_S - u_c)$ strictly invariant.
+
+A concrete numerical comparison shows how strongly shear lengthens this clock. Rewriting~\eqref{eq:focusing} in terms of the normalized radius $v = r/r_S \in [\epsilon, 1]$ expresses the accumulated squared shear as a nonnegative integral $\Xi(v) \ge 0$ along the ray, giving $u_* = r_S \int_\epsilon^1 e^{\Xi(v)}\,dv$. Take a cap fraction $\epsilon = 0.01$ and corner radius $r_S = 1\,\mathrm{m}$: with zero shear ($\Xi = 0$), the clock reads $u_* = (1 - 0.01)\times 1\,\mathrm{m} = 0.99\,\mathrm{m}$; with a prescribed accumulated focusing profile $\Xi(v) = 2(v - \epsilon)$, the integral evaluates to $(e^{1.98}-1)/2 \approx 3.12$, lengthening the reading to $u_* \approx 3.12\,\mathrm{m}$---more than three times longer to reach the same corner radius.
+
+Because the shear integral in~\eqref{eq:clock} is nonnegative, $u_* \ge (1-\epsilon)r_S$ on every ray. Taking Chandrasekaran's $r_S$-weighted angular average $\bar u_*$ over the sphere and applying Cauchy--Schwarz yields the classical area bound in terms of the total corner area $A$:
+\begin{equation}
+  \bar u_* \ge (1 - \epsilon)\sqrt{\frac{A}{4\pi}},
+  \qquad\text{or equivalently}\qquad
+  A \le 4\pi\left(\frac{\bar u_*}{1-\epsilon}\right)^2.
+  \label{eq:area-bound}
+\end{equation}
+A round shear-free sphere saturates~\eqref{eq:area-bound}. One geometric subtlety matters for the coordinate chart: in a smooth positive-area bundle, the integrated identity~\eqref{eq:clock} can survive even past an area maximum where expansion turns negative, whereas using $v = r/r_S$ as a global coordinate along the ray requires $r(u)$ to remain strictly monotonic.
+
+\subsection{The finite-cap symplectic defect}
+\label{subsec:cap-defect}
+On the bulk side, the preprint's first-order gravitational action reproduces vacuum Einstein's equations on the branch with an invertible tetrad. Introducing a finite cap, however, raises a boundary requirement: the symplectic two-form $\omega$ whose inverse defines the Poisson brackets of boundary data must be closed ($d\omega = 0$ on field space), otherwise the brackets violate the Jacobi identity.
+
+Varying the corner area density together with two independent radial profiles of a single gravitational polarization---variations permitted by the fixed-ratio cap condition $r(u_c) = \epsilon r_S$---reveals a \textbf{defect in the construction as written}: the exterior derivative of the displayed finite-cap two-form (A.14) retains an uncancelled three-form localized at the cap rim. Evaluated on the cubic polynomial test family of \repo{checks/03-3.py}{\texttt{checks/03-3.py}}, this residual equals $1/256$ at $\epsilon = 1/2$ in the normalization of that calculation. It vanishes only in the smooth-vertex limit ($\epsilon = 0$), at fixed local corner area, or under tighter endpoint restrictions. Any covariant repair that retains the moving cap and its joints, or restricts the allowed variations, must also produce a boundary Hamiltonian generator that accounts for radiative flux across a translating cut.
+
+\note{Preprint \S3 and Appendices A--B \cite{chandrasekaran2026}; prior null brackets in Reisenberger \cite{reisenberger2007}. Audit notes: \repo{audit/03-2.md}{focusing derivation}, \repo{audit/03-3.md}{closure test}, \repo{audit/cap-crosscheck.md}{cap variations}, and \repo{audit/03-4.md}{Hamiltonian and boundary flux}.}
+
+% ============================================================================
+\section[Exact 4D Pair Correlator]{An Exact Four-Dimensional Pair Correlator and Weak-Coupling Failure}
+\label{sec:pairs}
+
+Before addressing state counting, Section~4.4 of the preprint presents a self-contained four-dimensional calculation meant to illustrate how finite-coupling amplitudes can remain ultraviolet-finite even when their weak-coupling series diverges. Consider a single angular harmonic and one polarization of gravitational radiation on a fixed-area incoming cone, decomposed into independent radial Gaussian oscillators labeled by integers $k = 1, 2, \ldots$ in a vacuum state $\Omega$. Define the dimensionless area and inverse-area coupling
+\begin{equation}
+  s = \frac{A}{4G_N\hbar},
+  \qquad
+  x = \frac{1}{s} = \frac{4G_N\hbar}{A},
+  \qquad
+  v_k = \langle q_k^2\rangle = \frac{x}{2k}.
+\end{equation}
+At fixed physical area $A$, sending $x \downarrow 0$ weakens the gravitational coupling. For each mode, the mean-subtracted quadratic source $q_k^2 - v_k$ annihilates the vacuum piece and creates a two-quantum state $|2_k\rangle$ with amplitude $\sqrt{2}\,v_k$. Pairs in distinct modes are mutually orthogonal. Under the preprint's coupling-scaled affine displacement, each pair $|2_k\rangle$ acquires a phase $e^{-2ikx}$.
+
+\subsection{Exact mode summation and error control}
+Summing modes $k = 1, \ldots, N$, the overlap of the pair preparation with its displaced copy is
+\begin{equation}
+  C_N(x)
+  = 2\sum_{k=1}^N v_k^2 e^{-2ikx}
+  = \frac{x^2}{2}\sum_{k=1}^N \frac{e^{-2ikx}}{k^2}.
+  \label{eq:dilog-partial}
+\end{equation}
+Because every term has modulus $x^2/(2k^2)$, the series converges absolutely as $N \to \infty$ with truncation error bounded by $|C(x) - C_N(x)| \le x^2/(2N)$ for every $x$. Its continuum limit is Euler's dilogarithm on the unit circle:
+\begin{equation}
+  C(x) = \frac{x^2}{2}\operatorname{Li}_2(e^{-2ix}),
+  \qquad
+  \operatorname{Li}_2(z) = \sum_{k=1}^{\infty}\frac{z^k}{k^2}
+  \quad (|z|\le 1).
+  \label{eq:dilog}
+\end{equation}
+This formula provides a sharp numerical benchmark (\repo{checks/pair.py}{\texttt{checks/pair.py}}): at $x = 0.1$, the continuum limit is $C(0.1) \approx 0.006703874 - 0.002609994\,i$, and a direct sum through $N = 100{,}000$ radial modes agrees with an independent quadrature evaluation to $2.50\times 10^{-12}$, well inside the analytic tail bound.
+
+\subsection{Why expanding before taking the continuum limit fails}
+Suppose instead that one fixes the ultraviolet cutoff $N$ and expands each phase $e^{-2ikx} = 1 - 2ikx + O(k^2x^2)$ in powers of $x \propto G_N$. The coefficient of $x^3$ in $C_N(x)$ is then $-iH_N$, where $H_N = \sum_{k=1}^N 1/k \sim \log N + \gamma$ diverges logarithmically as $N \to \infty$. By contrast, expanding the exact continuum limit~\eqref{eq:dilog} as $x \downarrow 0$ yields
+\begin{equation}
+  \operatorname{Im} C(x) = x^3\bigl[\log(2x) - 1\bigr] + O(x^5)
+  \qquad (x \downarrow 0),
+\end{equation}
+together with a one-sided real cubic term $-\frac{\pi}{2}x^3$ that vanishes identically at every finite $N$ (where $\operatorname{Re}C_N(x)$ is an even function of $x$). The discrepancy arises because modes with $kx \sim 1$ oscillate by order-one radians, cutting off the harmonic sum around $k \sim 1/x$ and turning $\log N$ into $\log(1/x)$. Treating every phase as small is valid only when $Nx \ll 1$, so the limits $N \to \infty$ and $x \downarrow 0$ do not commute at third order.
+
+\subsection{Scope of the calculation}
+The algebra and asymptotics of~\eqref{eq:dilog-partial}--\eqref{eq:dilog} reproduce exactly. Physically, however, the example uses uncoupled Gaussian oscillators in a single angular harmonic with a source displacement chosen to shrink proportionally to $x$: holding the displacement fixed independently of $x$ leaves a constant multiple of $x^2$, and the mode sum already converges at zero displacement because the pair weights decay as $1/k^2$. Establishing finiteness for bulk gravitational self-interactions is a separate problem requiring the nonlinear Einstein vertices and external wave packets in a much larger spacetime region.
+
+\note{Preprint \S4.4, eqs.~(4.32)--(4.34) \cite{chandrasekaran2026}. Audit notes: \repo{audit/04-pair.md}{derivation and error bounds}, \repo{checks/pair.py}{reproduction script}, and \repo{audit/scattering.md}{scope of the scattering comparison}.}
+
+% ============================================================================
+\section[Quantum Clock Domain]{Probability, Rank, and the Quantum Clock Domain}
+\label{sec:clock}
+
+Suppose the averaged affine clock has a positive self-adjoint realization $T$ on the physical Hilbert space. Imposing an upper bound $\ell$ on the clock reading selects the subspace onto which the spectral projection $P_\ell = \mathbf{1}_{[0,\ell]}(T)$ projects. Two quantities must be kept strictly distinct: for a normalized preparation $\Omega$ ($\|\Omega\|=1$), the squared norm $\|P_\ell\Omega\|^2 \in [0,1]$ is the \emph{probability} that the clock passes the threshold, whereas $\rank P_\ell$ counts how many mutually orthogonal states pass.
+
+That a bounded clock does not automatically enforce finite rank is already visible in two-dimensional Jackiw--Teitelboim gravity (Section~2 of the preprint), where one can construct infinitely many orthogonal states that share the exact same probability distribution for the clock inside $[0,\ell]$. A concrete four-dimensional corner model shows how the same separation between passing probability and rank operates on a sphere of fixed area.
+
+\subsection{A shear-free corner with one shape degree of freedom}
+\label{subsec:shape-model}
+Fix the total corner area to $4\pi b^2$ and set the gravitational shear to zero. Allow a real shape parameter $q$ to redistribute the area density smoothly over the sphere in proportion to $e^{q\cos\theta}$, where $\theta$ is the polar angle. Here \textbf{area normalization} is crucial: dividing $e^{q\cos\theta}$ by its spherical integral keeps the total area fixed at $4\pi b^2$ for every $q$, while $q \ne 0$ redistributes area relative to the fixed angular boundary frame. Quantizing $q$ on $L^2(\mathbb{R}, dq)$ and writing $u_0 = (1-\epsilon)b$ for the round-sphere clock reading, angular integration gives the multiplication operator
+\begin{equation}
+  \frac{T(q)}{u_0} = \sqrt{\frac{q}{2}\coth(q/2)},
+  \qquad
+  T(0) = u_0.
+  \label{eq:corner-clock}
+\end{equation}
+Because $T(q)$ increases symmetrically away from $q=0$, setting a threshold $\ell = 1.1\,u_0$ accepts the entire interval $|q| \le q_* \simeq 1.6212273$. A normalized Gaussian preparation $\Omega(q) = \pi^{-1/4} e^{-q^2/2}$ (probability density $e^{-q^2}/\sqrt{\pi}$) passes with probability $\|P_\ell\Omega\|^2 = \operatorname{erf}(q_*) \simeq 0.97814$. Yet the rank of $P_\ell$ is strictly infinite: dividing $[-q_*, q_*]$ into as many disjoint subintervals as desired and taking their normalized indicator functions yields arbitrarily many mutually orthogonal allowed states. Approximating $q$ by finite Hermite-truncated position matrices illustrates why numerical truncations cannot by themselves establish a finite continuum bound: each time the matrix dimension quadruples, the count of accepted eigenvalues roughly doubles (Table~\ref{tab:corner-clock}).
+
+\begin{table}[htbp]
+  \centering
+  \caption{Accepted eigenvalues of the shear-free corner clock~\eqref{eq:corner-clock} at threshold $\ell/u_0 = 1.1$ ($|q| \le q_* \simeq 1.6212273$) across Hermite-truncated position matrices of increasing size (\repo{checks/corner_clock.py}{\texttt{checks/corner\_clock.py}}). The exact continuum rank on $L^2(\mathbb{R}, dq)$ is infinite.}
+  \label{tab:corner-clock}
+  \small
+  \begin{tabular}{@{}lrrrrr@{}}
+    \toprule
+    Truncated position-matrix dimension & 16 & 64 & 256 & 1,024 & 4,096 \\
+    Accepted eigenvalues ($T(q) \le 1.1\,u_0$) & 6 & 12 & 24 & 46 & 94 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Sensitivity to both threshold and measure is equally sharp: at the exact saturation value $\ell = u_0$, only the single point $q=0$ satisfies $T(q)\le u_0$, which has zero Lebesgue measure and zero rank; raising the threshold by ten percent immediately admits a continuum interval. Transferring this infinite-rank mechanism to four-dimensional gravity requires exhibiting a physical corner-shape observable that survives the gravitational constraints, possesses a continuous spectral component on an allowed state, and commutes with $P_\ell$.
+
+\subsection{Short-distance shear and whether the clock admits any state}
+In four-dimensional gravity with radiation, the clock operator integrates the exponential of accumulated squared shear along each expanding ray. Because squaring a fluctuating quantum field at a coincident point is ultraviolet-singular, an even more basic question precedes counting states: does the continuum clock projector $P_\ell$ admit \emph{any} nonzero physical state?
+
+For bare Gaussian radial modes with the preprint's $1/k$ variance scaling, the expected squared radial derivative grows quadratically with the mode cutoff $N$. A diverging expectation value alone does not rule out states with low clock readings, yet in two regulated quadratic models studied in \repo{audit/shear-uv.md}{\texttt{audit/shear-uv.md}}, even the state-independent \emph{lowest} eigenvalue of the capped clock operator diverges as the radial mode cutoff $N$ and the focusing cap $R$ are both removed, driving $\mathbf{1}_{[0,\ell]}(T_{N,R})$ to zero for every fixed $\ell$. Simply subtracting the vacuum expectation (normal ordering) sets the regulated vacuum mean to zero but forfeits the positive-square bound, because squeezed states can have variance below the vacuum---undermining the positivity $\Xi \ge 0$ that enforces the area bound~\eqref{eq:area-bound}. Whether the full nonlinear two-polarization gravitational clock escapes this collapse remains an open \textbf{proof gap}: a constructive resolution must exhibit a physical state of finite limiting clock energy, control its overlap with the prepared state $\Omega$, and establish a positive lower bound on $\|P_\ell\Omega\|^2$ at fixed $\ell$.
+
+\note{Preprint \S\S4.3 and 5.1 \cite{chandrasekaran2026}. Audit notes: \repo{audit/regulator-program.md}{exact shape benchmark}, \repo{checks/corner_clock.py}{eigenvalue counts}, and \repo{audit/shear-uv.md}{short-distance shear test}.}
+
+% ============================================================================
+\section[Open vs.\ Closed Sewing]{Open Sewing, Closed Traces, and the Boost Argument}
+\label{sec:sewing}
+
+Section~5.2 of the preprint advances its central finite-dimensionality argument: gluing two copies of a clock-bounded causal diamond across their shared corner $S$ and comparing the effect of a relative corner boost on a cut versus an uncut geometry. Understanding the exact status of this proof hinges on the distinction between \emph{open sewing} and \emph{closed sewing} (Figure~\ref{fig:sewing}).
+
+\subsection{Open sewing versus closed sewing}
+Consider cutting an experiment into two halves along an intermediate surface and inserting a complete orthonormal basis $\{|j\rangle\}$ at the cut. If the two halves are prepared in fixed, normalizable states with components $a_j$ and $b_j$ ($\sum_j |a_j|^2 < \infty$, $\sum_j |b_j|^2 < \infty$), the Cauchy--Schwarz inequality guarantees
+\begin{equation}
+  \sum_j |a_j^* b_j|
+  \le \left(\sum_j |a_j|^2\right)^{1/2}
+      \left(\sum_j |b_j|^2\right)^{1/2}
+  < \infty.
+  \label{eq:open-sewing}
+\end{equation}
+This \emph{open sewing} converges absolutely in every basis and every summation order, even when the Hilbert space is infinite-dimensional. As a concrete illustration, composing two identity operators between fixed unit vectors $|\psi\rangle$ and $|\phi\rangle$ simply recovers their finite inner product $\langle\phi|\psi\rangle$. By contrast, closing the same identity operator into a loop with no fixed external vectors replaces~\eqref{eq:open-sewing} with the trace $\sum_j \langle j|I|j\rangle = \sum_j 1$, which diverges whenever the space is infinite-dimensional. Fixed external preparations supply the square-summability that a closed trace lacks.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[scale=0.95, >=Stealth, font=\sffamily\small]
+    % Left box: Open sewing
+    \begin{scope}[xshift=0cm]
+      \draw[rulecol, rounded corners=4pt, fill=mist!55, line width=0.6pt] (-0.3,-1.35) rectangle (6.65,1.82);
+      \node[seadeep, font=\sffamily\bfseries\small, anchor=north west] at (-0.1,1.68) {Open sewing (fixed endpoints)};
+
+      \node[ink] (psi) at (0.38,0.52) {$|\psi\rangle$};
+      \draw[sea, fill=white, rounded corners=2pt, line width=0.8pt] (1.05,0.20) rectangle (2.15,0.84);
+      \node[ink, font=\sffamily\footnotesize] at (1.60,0.52) {$U_1$};
+
+      \draw[ochre, dashed, line width=0.95pt] (3.18,1.06) -- (3.18,-0.02);
+      \node[ochre, font=\sffamily\scriptsize, below] at (3.18,-0.04) {cut $\sum_j |j\rangle\langle j|$};
+
+      \draw[sea, fill=white, rounded corners=2pt, line width=0.8pt] (4.20,0.20) rectangle (5.30,0.84);
+      \node[ink, font=\sffamily\footnotesize] at (4.75,0.52) {$U_2$};
+      \node[ink] (phi) at (5.98,0.52) {$\langle\phi|$};
+
+      \draw[ink, ->, line width=0.7pt] (0.74,0.52) -- (1.05,0.52);
+      \draw[ink, ->, line width=0.7pt] (2.15,0.52) -- (3.08,0.52);
+      \draw[ink, ->, line width=0.7pt] (3.28,0.52) -- (4.20,0.52);
+      \draw[ink, ->, line width=0.7pt] (5.30,0.52) -- (5.64,0.52);
+
+      \node[muted, font=\sffamily\scriptsize, align=center] at (3.18,-0.88)
+        {$\sum_j |a_j^* b_j| \le \|\psi\|\|\phi\| < \infty$ in any basis order};
+    \end{scope}
+
+    % Right box: Closed sewing
+    \begin{scope}[xshift=7.35cm]
+      \draw[rulecol, rounded corners=4pt, fill=ochrelight!65, line width=0.6pt] (-0.3,-1.35) rectangle (6.65,1.82);
+      \node[ochre, font=\sffamily\bfseries\small, anchor=north west] at (-0.1,1.68) {Closed sewing (trace loop)};
+
+      % Loop shifted down to stay clear of heading
+      \draw[sea, line width=0.95pt, rounded corners=7pt] (1.15,0.12) -- (1.15,-0.22) -- (5.25,-0.22) -- (5.25,0.82) -- (4.10,0.82);
+      \draw[sea, line width=0.95pt, rounded corners=7pt, ->] (2.45,0.82) -- (1.15,0.82) -- (1.15,0.68);
+      \draw[sea, fill=white, rounded corners=2pt, line width=0.8pt] (0.65,0.12) rectangle (1.65,0.68);
+      \node[ink, font=\sffamily\footnotesize] at (1.15,0.40) {$W$};
+
+      % Cut on upper branch
+      \draw[ochre, dashed, line width=0.95pt] (3.30,1.12) -- (3.30,0.50);
+      \draw[sea, line width=0.95pt] (2.45,0.82) -- (3.20,0.82);
+      \draw[sea, line width=0.95pt] (3.40,0.82) -- (4.10,0.82);
+      \node[ochre, font=\sffamily\scriptsize, below] at (3.30,0.48) {cut $\sum_j |j\rangle\langle j|$};
+
+      \node[muted, font=\sffamily\scriptsize, align=center] at (3.18,-0.88)
+        {$\tr(FWF) \ge c\,\rank F$: finite trace $\iff$ finite rank};
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Left: inserting a resolution of the identity between fixed, normalizable preparations converges absolutely regardless of dimension. Right: closing the cut into a loop with weight $W = e^{-s}f_b(s) \ge c\,I$ removes the endpoint decay; every independent basis state contributes at least $c > 0$, so finiteness of the ordinary closed trace is already equivalent to finite dimension.}
+  \label{fig:sewing}
+\end{figure}
+
+\subsection{The positive weight floor on the selected space}
+Assume that the quantum clock $T$ exists, commutes strongly with the corner area operator, and enforces the classical bound~\eqref{eq:area-bound}. Every state in the clock-selected subspace then has dimensionless area $s = A/(4G_N\hbar)$ confined to the closed bounded interval
 \[
-  \frac{d^2 r}{du^2}=-\frac{r}{2}\,\sigma_{AB}\sigma^{AB}.
+  0 \le s \le s_*,
+  \qquad
+  s_* = \frac{\pi\ell^2}{(1-\epsilon)^2 G_N\hbar}.
 \]
-The shear $\sigma_{AB}$ measures the change of shape of the bundle at fixed area. Its square is nonnegative. A wave that produces shear therefore reduces the rate at which the rays spread. A round shear-free bundle has $r''=0$.
+Gluing two copies of the diamond by an imaginary half-boost $e^{-s/2}$ together with a Gaussian area filter $f_b(s)$ centered at $s_b = \pi b^2/(G_N\hbar)$ (the value for a round sphere of radius $b$, with variance $2s_b$ in the entropy calculation; any fixed positive width suffices here) produces the positive reflected weight
+\begin{equation}
+  W = e^{-s} f_b(s),
+  \qquad
+  f_b(s) = \exp\!\left[-\frac{(s - s_b)^2}{4s_b}\right].
+  \label{eq:weight}
+\end{equation}
+Because $W(s)$ is continuous and strictly positive on the compact interval $[0, s_*]$, it achieves a strictly positive minimum $c = \min_{s\in[0,s_*]} W(s) > 0$. Consequently, for every finite-dimensional projection $F$ within the clock-selected space,
+\begin{equation}
+  c\,\rank F \le \tr(FWF) \le \rank F.
+  \label{eq:trace-bounds}
+\end{equation}
+Every independent state adds at least $c$ to the ordinary, unnormalized trace. Under these hypotheses, proving that the closed trace $\tr(W)$ is finite is mathematically equivalent to proving finite rank; a proof of finite dimensionality must therefore establish control of the closed experiment independently rather than appealing to open sewing.
 
-\subhead{An affine clock}
-Cut the expanding light cone from the past tip (the paper's incoming cone) at a cap, with radius $\epsilon r_S$ on this ray, where $0<\epsilon<1$ and $r_S$ is its corner radius. Let $u_c$ denote the affine coordinate at the cap and $u_S$ its value at the corner. Integrating the focusing equation gives
-\[
- \underbrace{r'(u_c)(u_S-u_c)}_{u_*}
- =(1-\epsilon)r_S+
- \frac12\int_{u_c}^{u_S}(u_S-w)r(w)\,\sigma_{AB}\sigma^{AB}(w)\,dw .
-\]
-Changing the units of $u$ rescales the slope and the interval inversely, so their product is unchanged. The integral gives the extra reading caused by shear. For the paper's angularly averaged clock $\bar u_*$ and total corner area $A$, the corresponding classical bound is
-\[
- \bar u_*\ \ge\ (1-\epsilon)\sqrt{A/(4\pi)} .
-\]
-A round shear-free sphere saturates the bound. In a smooth positive-area bundle the integrated identity can survive an area maximum. Using $r/r_S$ as a coordinate along the entire ray requires monotonicity.
+\subsection{The boost contradiction and a concrete two-area test}
+In the canonical phase space at the corner, the area operator generates relative normal boosts $U(\eta) = e^{i\eta s/(2\pi)}$ of rapidity $\eta$ between the two sides of the cut. In the smooth linearized vacuum, boosting one side changes a bounded two-sided shear observable. The argument requires this signal to persist in the full uncut preparation. The preprint argues by contradiction: if the selected space were infinite-dimensional, the pigeonhole principle would pack infinitely many basis states into an arbitrarily narrow bin of $[0, s_*]$. Reordering the entire basis into long cycles dominated by that narrow bin makes the boost supply nearly a common phase to almost every state in each partial sum, suppressing the cut boost contrast below the smooth uncut prediction.
 
-\subhead{What the boundary still has to supply}
-The first-order bulk equations reduce to Einstein's equations on the branch with an invertible gravitational tetrad. A finite cap brings an additional question. The two-form that determines the brackets of boundary data must be closed. Vary the corner area and two independent radial profiles of a single polarization, as the cap condition permits. The exterior derivative of the displayed two-form (A.14) retains a term at the cap rim. Its value on the polynomial test family is $1/256$ at $\epsilon=1/2$, in the normalization of that calculation. Any repair that retains the moving cap and its joints, or restricts the allowed variations, must also give a generator with the correct boundary flux.
+The \textbf{proof gap} lies in the limit connecting those cycle partial sums to the uncut amplitude. Because $Z_F = \tr(FWF)$ diverges with $\rank F$ under the infinite-dimension assumption, open sewing does not imply that every exhaustive basis ordering evaluates the same closed functional. (For the preprint's unnormalized signed insertion, bounded partial sums along those cycles already force finite rank without even invoking the sign of the uncut answer.)
 
-\source{Preprint \S3 and Appendices A--B. \repo{audit/03-2.md}{Focusing derivation} \enspace/\enspace \repo{audit/03-3.md}{Closure test} \enspace/\enspace \repo{audit/cap-crosscheck.md}{Cap variations} \enspace/\enspace \repo{audit/03-4.md}{Hamiltonian and boundary flux}.}
+A simple two-area operator model (\repo{checks/05-2.py}{\texttt{checks/05-2.py}}) makes this order dependence concrete. Take an infinite-dimensional space with just two allowed area values, $s_0 = 1$ and $s_1 = 1 + 2\pi$, each carrying infinite multiplicity ($\HH = \mathbb{C}^2 \otimes \ell^2(\mathbb{N})$). For this example choose a Gaussian of variance one centered at $s_b=2+\pi$, independently of the entropy-packet width in Eq.~\eqref{eq:weight}. The reflected weights $W(s)=\exp[-s-(s-s_b)^2/2]$ then agree at both levels. Act by the boost $U(\eta) = e^{i\eta s/(2\pi)}$ at $\eta = 1$, and measure the bounded observable that swaps the two area labels simultaneously on both sides of the cut. Open sewing holds identically for all fixed states. Yet exhausting the exact same basis by grouping $k$ states from $s_0$ with every $1$ state from $s_1$ yields a normalized boost contrast $2(\cos 1 - 1)/(k + 1)$ that depends permanently on the cycle ratio $k$ (Table~\ref{tab:two-area}). Gravity could supply an additional closed-sewing identity selecting a unique physical limit, but open gluing alone does not provide it.
 
-\chapterpage{pairs}{A quantum calculation that closes}{Worked example 1}
-Consider a single angular pattern of gravitational radiation and one of its two polarizations. Radial oscillations of this pattern carry integer labels $k=1,2,\ldots$. The example chooses independent Gaussian oscillators in a vacuum state $\Omega$. Write
-\[
-   s=\frac{A}{4G_N\hbar},\qquad x=\frac1s,\qquad
-   v_k=\langle q_k^2\rangle=\frac{x}{2k}.
-\]
-Here $G_N$ is Newton's constant, $\hbar$ is the reduced Planck constant and the speed of light is one. At a fixed area, decreasing $x$ weakens the coupling. The source $q_k^2-v_k$ subtracts its vacuum mean. Acting on $\Omega$, it creates a pair of quanta in mode $k$ with amplitude $\sqrt{2}\,v_k$. Distinct pairs are orthogonal. The chosen displacement multiplies each by a phase $e^{-2ikx}$.
+\begin{table}[htbp]
+  \centering
+  \caption{Exhaustive basis orderings in the infinite-multiplicity two-area model ($s_0=1$, $s_1=1+2\pi$, equal weights, boost rapidity $\eta=1$; \repo{checks/05-2.py}{\texttt{checks/05-2.py}}). Every grouping includes every basis vector in the limit ($P_N \to I$ strongly) and obeys open sewing, yet each converges to a different boost contrast.}
+  \label{tab:two-area}
+  \small
+  \begin{tabular}{@{}lccr@{}}
+    \toprule
+    Grouping strategy & Cycle ratio ($s_0 : s_1$) & Exhausts basis? & Normalized contrast \\
+    \midrule
+    Balanced exhaustion ($k=1$) & $1 : 1$ & Yes & $-0.45970$ \\
+    Moderate skewed cycle ($k=4$) & $4 : 1$ & Yes & $-0.18388$ \\
+    Heavy skewed cycle ($k=40$) & $40 : 1$ & Yes & $-0.02242$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
-\subhead{Sum the mode contributions}
-With modes through $N$, the overlap of the pair preparation with its displaced copy is
-\[
- C_N(x)=2\sum_{k=1}^N v_k^2e^{-2ikx}
-       =\frac{x^2}{2}\sum_{k=1}^N\frac{e^{-2ikx}}{k^2}.
-\]
-Every term has magnitude $x^2/(2k^2)$. Hence the limit $C(x)$ exists, and its error is at most $x^2/(2N)$. In closed form,
-\[
- C(x)=\tfrac12 x^2\operatorname{Li}_2(e^{-2ix}),\qquad
- \operatorname{Li}_2(z)=\sum_{k\ge1}\frac{z^k}{k^2}\quad(|z|\le1).
-\]
-At $x=0.1$ the limiting answer is approximately $0.006703874-0.002609994\,i$. A direct sum through $100{,}000$ radial modes differs from an independent evaluation by $2.50\times10^{-12}$.
+\note{Preprint \S\S4.4 and 5.2 \cite{chandrasekaran2026}. Audit notes: \repo{audit/04-gluing.md}{open sewing}, \repo{audit/dimension-crosscheck.md}{boost argument}, and \repo{checks/05-2.py}{two-area calculation}.}
 
-\subhead{Why a weak-coupling expansion misleads}
-Each phase starts with $1-2ikx$. The coefficient of $x^3$ in $C_N$ is therefore $-iH_N$, where $H_N=1+1/2+\cdots+1/N$. Its magnitude grows without bound as $N$ increases. In the exact answer,
-\[
- \operatorname{Im}C(x)=x^3[\log(2x)-1]+O(x^5)\qquad(x\downarrow0).
-\]
-Modes with $kx$ of order one invalidate an expansion that treats every phase as small. The exact overlap is finite even at zero displacement because the pair weights already fall as $1/k^2$. Holding the displacement fixed independently of $x$ would leave a constant times $x^2$. Testing gravitational self-interactions requires the Einstein vertices and external wave packets in a much larger region.
+% ============================================================================
+\section[Black-Hole Entropy and Ensembles]{Black-Hole Entropy and Ensemble Conversion}
+\label{sec:entropy}
 
-\source{Preprint \S4.4, equations (4.32)--(4.34). \repo{audit/04-pair.md}{Derivation and error bounds} \enspace/\enspace \repo{checks/pair.py}{Reproduction script} \enspace/\enspace \repo{audit/scattering.md}{Scope of the scattering comparison}.}
+For a large four-dimensional Schwarzschild black hole, the Bekenstein--Hawking entropy is its horizon area in Planck units, $s = A/(4G_N\hbar)$. Deriving this law together with its logarithmic quantum correction by counting states of the interior would connect black-hole thermodynamics directly to microscopic gravitational degrees of freedom.
 
-\chapterpage{clock}{Who passes the clock test?}{Worked example 2}
-In a quantum theory the reading becomes an operator $T$. A maximum allowed reading $\ell$ selects the subspace onto which $P_\ell=\mathbf 1_{[0,\ell]}(T)$ projects. For a normalized preparation $\Omega$, $\|P_\ell\Omega\|^2$ is the probability of passing. The rank of $P_\ell$ counts independent states that pass. These quantities can be calculated separately in a simple model.
+Because the corner boost is generated by $s/(2\pi)$, analytically continuing by a half-turn $\eta = i\pi$ yields the operator $e^{-s/2}$, whose reflected square gives the relative state weight $e^{-s}$. Whenever the trace $Z = \tr(e^{-s})$ on the selected subspace is finite and nonzero, the normalized density matrix $\rho$ and its von Neumann entropy obey the algebraic identity
+\begin{equation}
+  \rho = Z^{-1} e^{-s},
+  \qquad
+  -\tr(\rho\log\rho) = \langle s\rangle_\rho + \log Z.
+  \label{eq:vn-entropy}
+\end{equation}
+The identity leaves the large-area scaling of $\log Z$ undetermined. For example, restricting the trace to $d$ states at one sharp area gives $Z=d e^{-s}$ and entropy $\log d$. An area law requires information about the multiplicities.
 
-\subhead{A corner with one adjustable shape}
-Keep the total area $4\pi b^2$ fixed and set the shear to zero. Let a real number $q$ redistribute area over the sphere with density proportional to $e^{q\cos\theta}$, where $\theta$ is the polar angle. Normalize the density to keep the total area fixed. In the model, wavefunctions are square-integrable functions of $q$ with measure $dq$. With $u_0=(1-\epsilon)b$, angular integration gives
-\[
-    \frac{T(q)}{u_0}=\sqrt{\frac q2\coth(q/2)},\qquad T(0)=u_0 .
-\]
-The clock acts by multiplication. Set $\ell=1.1u_0$. The accepted interval is $|q|\le q_*\simeq1.6212273$. For a normalized Gaussian with density $e^{-q^2}/\sqrt\pi$, its probability is $\operatorname{erf}(q_*)\simeq0.97814$. Divide that same interval into as many disjoint pieces as desired. The normalized indicator function of each piece is an allowed state and the functions are mutually orthogonal. The exact rank is infinite. In finite matrix approximations, the accepted count roughly doubles each time the matrix size quadruples.
+\subsection{The one-loop curvature coefficient and Sen's spin ensembles}
+On a four-dimensional Ricci-flat Schwarzschild background, local one-loop fluctuations of the graviton and its ghosts produce the heat-kernel curvature coefficient $53/45$ (in the standard convention with $(4\pi)^{-2}$ factored out). Both Chandrasekaran's calculation and Ashoke Sen's benchmark analysis~\cite{sen2012} use this same local coefficient (independently confirmed by spin-2 heat-kernel and effective-action computations~\cite{bastianelli2022,elmenoufi2015}). Converting it to the logarithmic correction of the density of states per unit mass, summed over all angular momenta, yields at fixed reference units
+\begin{equation}
+  S = s + \frac{106}{45}\log s + O(1).
+  \label{eq:sen-log}
+\end{equation}
+Changing the \textbf{spin ensemble} changes this coefficient by calculable integers divided by $90$: fixing a single angular-momentum component $J_3 = 0$ lowers the coefficient of $\log s$ to $167/90$, and restricting to rotational singlets ($J = 0$) lowers it further to $77/90$~\cite{sen2012}. If the large-mass prefactors in the spin densities approach finite nonzero constants, doubling the black-hole mass $M \mapsto 2M$ quadruples the area $s \mapsto 4s$, so the ratio of spin-restricted to spin-summed state densities changes by an asymptotic factor of $4^{167/90 - 106/45} = 1/2$ for $J_3 = 0$ and $4^{77/90 - 106/45} = 1/8$ for $J = 0$.
 
-\begin{center}\small
-\begin{tabular}{@{}lrrrrr@{}}\toprule
-Size of the truncated position matrix & 16 & 64 & 256 & 1,024 & 4,096\\
-Accepted eigenvalues & 6 & 12 & 24 & 46 & 94\\\bottomrule
-\end{tabular}\end{center}
-At $\ell=u_0$ only the point $q=0$ passes, and it has zero measure. Increasing the threshold by ten per cent admits an entire interval. This explains why both the measure and the physical meaning of $q$ matter. To transfer this result to gravity one must exhibit a physical shape observable that survives the constraints, has a continuous component in its spectrum on an allowed state, and has spectral projections commuting with the clock.
+\subsection{How the Gaussian area window matches the mass ensemble}
+To connect an interior area trace to Sen's mass density, one must track how bin widths transform between counting variables (Figure~\ref{fig:ensemble}). The preprint evaluates the interior trace with the Gaussian area packet $f_b(s) = \exp[-(s - s_b)^2/(4s_b)]$, which has height $1$ and standard deviation $\Delta s = \sqrt{2s_b}$. Suppose that across an interior packet far from the endpoints $[0, s_*]$, the boost-weighted density of states per unit $s$ behaves smoothly as $C s^p\,ds$. Integrating against the Gaussian window yields
+\begin{equation}
+  \int C s^p e^{-(s - s_b)^2/(4s_b)}\,ds
+  \sim C\sqrt{4\pi}\,s_b^{\,p + 1/2}.
+  \label{eq:packet}
+\end{equation}
+The growing width of the Gaussian packet multiplies the local per-area density by $\sqrt{s_b}$, raising the logarithmic exponent from $p$ to $p + \tfrac{1}{2}$. Now compare with converting a state density per unit $s$ into a state density per unit mass $M$. For a four-dimensional Schwarzschild black hole, $s = 4\pi G_N M^2/\hbar \propto M^2$, so the Jacobian $ds/dM = 4\sqrt{\pi G_N/\hbar}\,\sqrt{s}$ supplies the \emph{exact same} $\sqrt{s}$ factor: a packet of area width $\Delta s \propto \sqrt{s_b}$ has a constant asymptotic mass width $\Delta M$.
 
-\subhead{Can the gravitational clock admit even one state?}
-On an expanding light cone the clock integrates the exponential of accumulated squared shear. Squaring a fluctuating field at a point is singular. With selected bare Gaussian modes its mean derivative square grows with radial resolution. A growing mean alone leaves the probability of a low reading undetermined, yet in two regulated quadratic models even the lowest clock eigenvalue diverges with resolution, emptying any fixed window; whether the nonlinear gravitational clock behaves similarly remains open. Vacuum subtraction changes the positivity argument. A constructive answer would exhibit a physical state of finite limiting clock energy, control its overlap with the prepared state and bound its probability at the specified $\ell$.
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[xscale=0.88, yscale=0.78, >=Stealth, font=\sffamily\small]
+    \draw[ink, ->, line width=0.7pt] (0,0) -- (10.2,0) node[right, font=\sffamily\footnotesize] {$s = A/(4G_N\hbar)$};
+    \draw[ink, ->, line width=0.7pt] (0,0) -- (0,2.50) node[above, font=\sffamily\footnotesize] {window weight};
 
-\source{Preprint \S\S4.3 and 5.1. \repo{audit/regulator-program.md}{Exact shape benchmark} \enspace/\enspace \repo{checks/corner_clock.py}{Eigenvalue counts} \enspace/\enspace \repo{audit/shear-uv.md}{Short-distance shear test}.}
+    % Shaded s <= s_*/2 region
+    \fill[mist] (0,0) rectangle (4.3,2.15);
+    \draw[sea, dashed, line width=0.75pt] (4.3,0) -- (4.3,2.18);
+    \node[seadeep, font=\sffamily\scriptsize, align=center] at (2.15,1.35)
+      {Lower half of clock bound\\$s \le s_*/2$\\[2pt]unfiltered trace fraction:\\$0.13816$ vs.\ $0.09770$};
 
-\chapterpage{sewing}{Closing the cut changes the sum}{The state-count argument}
-Imagine cutting an experiment in two. To compute the amplitude between specified initial and final states, insert a complete set of intermediate states $|j\rangle$. If $a_j$ and $b_j$ are the components of the two preparations at the cut, then
-\[
-  \sum_j |a_j^*b_j|\le
-     \left(\sum_j|a_j|^2\right)^{1/2}
-     \left(\sum_j|b_j|^2\right)^{1/2}.
-\]
-Each preparation has finite norm. This is why composing the two pieces, called \emph{open sewing}, converges even in an infinite-dimensional space. For instance, composing two identity operators between fixed unit vectors gives their finite inner product. Closing the same identity operator into a loop asks for $\sum_j 1$. The fixed endpoints had supplied an essential restriction.
+    % Upper clock bound s_*
+    \draw[ink, line width=0.9pt] (8.6,0) -- (8.6,2.18);
+    \node[ink, below, font=\sffamily\footnotesize] at (8.6,0) {$s_*$};
+    \node[seadeep, below, font=\sffamily\footnotesize] at (4.3,0) {$s_*/2$};
+    \node[muted, below, font=\sffamily\footnotesize] at (0,0) {$0$};
 
-\subhead{The weight each allowed state carries}
-Assume the quantum clock exists, commutes strongly with the area, and enforces the classical bound. Then $0\le s\le s_*$, where $s_*=\pi\ell^2/[(1-\epsilon)^2G_N\hbar]$. Centre a Gaussian filter at $s_b=\pi b^2/(G_N\hbar)$, the value for a round sphere of radius $b$. Any fixed positive width works here. The entropy calculation chooses variance $2s_b$, giving the reflected weight
-\[
- W=e^{-s}f_b(s),\qquad
- f_b(s)=\exp[-(s-s_b)^2/(4s_b)].
-\]
-The minimum $c$ of this weight on the closed bounded interval is strictly positive. For every finite-dimensional projection $F$ in the selected space,
-\[
-      c\,\rank F\ \le\ \tr(FWF)\ \le\ \rank F.
-\]
-Every independent state adds at least $c$ to the ordinary, unnormalized trace. Under these hypotheses a finite trace is already equivalent to finite rank. A proof must obtain control of the closed experiment independently.
+    % Gaussian packet centered at s_b = 6.45 with width sigma = 0.56
+    \fill[ochrelight, opacity=0.85]
+      plot[domain=4.55:8.35, samples=80] (\x, {1.98*exp(-((\x-6.45)^2)/(2*0.56^2))}) -- (8.35,0) -- (4.55,0) -- cycle;
+    \draw[ochre, line width=1.15pt]
+      plot[domain=4.55:8.35, samples=80] (\x, {1.98*exp(-((\x-6.45)^2)/(2*0.56^2))});
 
-\subhead{The proposed boost test}
-A relative boost changes the reference frame on one side of the cut. The paper predicts a change in a correlation measured across the two sides. If the space were infinite-dimensional, one could group states with very similar area into long cycles. The boost would supply almost a common phase to the dominant states in each partial sum, giving a conflicting prediction. The missing step is to prove that every exhaustive cut order converges to the same independently defined uncut measurement. For the paper's unnormalized signed insertion, bounded partial sums along those cycles already force finite rank without using the sign of the uncut answer.
+    % Center and width markers
+    \draw[ochre, dotted, line width=0.7pt] (6.45,0) -- (6.45,1.98);
+    \node[ochre, below, font=\sffamily\footnotesize] at (6.45,0) {$s_b$};
+    \draw[ochre, <->, line width=0.7pt] (6.45,1.18) -- (7.01,1.18);
+    \node[ochre, font=\sffamily\scriptsize, fill=ochrelight, inner sep=1pt] at (6.45,1.46) {$\Delta s = \sqrt{2s_b}$};
 
-A comparison space with two area values and infinite multiplicity at both obeys open sewing. Three ways of including every basis state give boost contrasts of approximately $-0.460$, $-0.184$ and $-0.022$. This demonstrates the dependence on summation order in the model. Gravity could impose an additional identity selecting the physical result.
+    % Clean annotation to the right of s_*
+    \node[muted, font=\sffamily\scriptsize, align=left, anchor=west] at (8.88,1.52)
+      {Packet width $\propto \sqrt{s_b}$\\matches $ds/dM \propto \sqrt{s}$\\(constant mass width $\Delta M$)};
+    \draw[muted, ->, line width=0.55pt] (8.84,1.60) -- (7.10,1.76);
+  \end{tikzpicture}
+  \caption{The clock-allowed area range $[0, s_*]$, the Gaussian packet $f_b(s)$ of width $\Delta s = \sqrt{2s_b}$ in~\eqref{eq:packet}, and the half-area cutoff $s_*/2$ of Section~\ref{sec:observables}. The shaded fractions concern the full ensemble without the Gaussian filter. Because both the packet width and the Schwarzschild Jacobian $ds/dM$ scale as $\sqrt{s}$, the packet trace and per-unit-mass density share one logarithmic coefficient $p + \tfrac{1}{2}$.}
+  \label{fig:ensemble}
+\end{figure}
 
-\source{Preprint \S\S4.4 and 5.2. \repo{audit/04-gluing.md}{Open sewing} \enspace/\enspace \repo{audit/dimension-crosscheck.md}{Boost argument} \enspace/\enspace \repo{checks/05-2.py}{Two-area calculation}.}
+Both counts therefore share the single logarithmic coefficient $p + \tfrac{1}{2}$; no second half-logarithm is added. Consequently, setting $p + \tfrac{1}{2} = 106/45$ fixes the underlying per-area power to $p = 167/90$, whereas assigning $106/45$ directly to the density per unit $s$ shifts the packet and mass-density exponent to $257/90$. The observed numerical match to~\eqref{eq:sen-log} verifies this ensemble conversion and local heat-kernel input rather than supplying an independent microscopic count. Completing an independent derivation remains a \textbf{proof gap}: it requires computing the full measure for the area collective coordinate, constraints, ghost modes, and zero modes on joined replicas, verifying that the clock-filtered trace selects the marginal horizon saddle over a flat round sphere, and matching the interior preparation to the asymptotic mass and spin ensemble.
 
-\chapterpage{entropy}{Which black-hole entropy is counted?}{An independent comparison}
-The Bekenstein--Hawking entropy of a large black hole is its horizon area in gravitational units, $s=A/(4G_N\hbar)$, with Boltzmann's constant set to one. If one derived this by counting states of the interior, it would connect the thermodynamic area law to specific microscopic degrees of freedom. The proposal starts from a boost at the corner, which gives states a relative weight $e^{-s}$. Whenever the trace $Z=\tr(e^{-s})$ is finite and nonzero in the selected space, the normalized density matrix and its entropy obey
-\[
-   \rho=Z^{-1} e^{-s},\qquad
-   -\tr(\rho\log\rho)=\langle s\rangle_\rho+\log Z .
-\]
-The first term follows algebraically. The value and scaling of the second depend on which states the trace includes.
+\note{Preprint \S5.3 and Appendix D.1 \cite{chandrasekaran2026}; Sen's ensembles \cite{sen2012}; independent local checks \cite{bastianelli2022,elmenoufi2015}. Audit notes: \repo{audit/ensemble-crosscheck.md}{area-packet derivation} and \repo{audit/sen.md}{coefficient comparison}.}
 
-\subhead{One coefficient can be checked directly}
-For a four-dimensional Schwarzschild black hole, the local graviton and ghost fluctuations give a curvature coefficient $53/45$ in the convention with $(4\pi)^{-2}$ factored out. Both this calculation and Sen's use that same local heat-kernel coefficient; converting it to the logarithmic entropy agrees with Sen's result for the density of states per unit mass, summed over angular momenta. At fixed reference units the entropy in this ensemble has the large-area form
-\[
-    S=s+\frac{106}{45}\log s+O(1).
-\]
-Fixing one angular momentum component at $J_3=0$ gives $167/90$ for the logarithmic coefficient. Keeping only rotational singlets gives $77/90$. These calculable differences specify how spin selection changes the count.
+% ============================================================================
+\clearpage
+\section[Discriminating Observables]{Calculable Benchmarks and Discriminating Observables}
+\label{sec:observables}
 
-\subhead{Why the area window matters}
-The proposed interior trace uses an area packet with Gaussian weight $f_b(s)$. Its standard deviation in $s$ is $\sqrt{2s_b}$. Suppose the boost-weighted density per unit $s$ behaves locally as $Cs^p$ across an interior packet, far from the endpoints. Then
-\[
- \int Cs^p e^{-(s-s_b)^2/(4s_b)}\,ds
-       \ \sim\ C\sqrt{4\pi}\,s_b^{p+1/2}.
-\]
-The packet width contributes a factor $\sqrt{s_b}$. For Schwarzschild, $s$ scales as mass squared, so converting a density per unit $s$ into a density per unit mass multiplies by the same square-root factor. Both counts therefore share one logarithmic coefficient, $p+\tfrac12$; no second half is added. Agreement checks that ensemble conversion rather than supplying an independent state count. An independent microscopic calculation must derive the measure for the area mode, the constraints, the ghost and zero modes, and match the interior preparation to the asymptotic mass and spin ensemble.
+A physical observation distinguishes two gravitational theories only when both predict calculable probabilities for the same preparation and detector, with shared parameters fixed beforehand. At present the null-cone proposal supplies concrete theoretical targets to compute, but no verified experimental residual separating it from ordinary low-energy gravity. Four benchmarks span classical optical geometry, laboratory matter coupling, interior state counting, and boundary-frame interference.
 
-\source{Preprint \S5.3 and Appendix D.1. \href{https://arxiv.org/abs/1205.0971}{Sen's ensemble calculation} \enspace/\enspace \repo{audit/ensemble-crosscheck.md}{Area-packet derivation} \enspace/\enspace \repo{audit/sen.md}{Coefficient comparison}.}
+\subsection{Optical focusing of a light pencil in a vacuum plane wave}
+Send a circular pencil of light against an exact vacuum gravitational plane wave and reflect its central ray back to an emitter clock~\cite{harte2015}. On the wave axis, compare the round-trip radar range $L$ with the optical area distance $D = \sqrt{dA/d\Omega}$ inferred from the spot area $dA$ and launch solid angle $d\Omega$. On a short constant-curvature plateau, the two transverse axes stretch and compress equally at first order, producing a signed spot ellipticity $e$, while their product reveals a quadratic focusing deficit:
+\begin{equation}
+  1 - \frac{D}{L} = \frac{e^2}{5} + O(e^4).
+\end{equation}
+For an illustrative gravitational-wave strain of $10^{-21}$ at $100\,\mathrm{Hz}$ over $L = 4\,\mathrm{km}$, the predicted spot ellipticity is $|e| \simeq 2.34\times 10^{-26}$ and the fractional distance deficit is $1.10\times 10^{-52}$. The absolute optical-distance deficit of $4.39\times 10^{-49}\,\mathrm{m}$ is roughly $10^{31}$ times smaller than the differential arm-length response $hL$ of an optimally oriented interferometer at the same strain, while the central round-trip echo time remains strictly unchanged in this axial geometry. This is a classical Einstein prediction for a screen and clock; testing a quantization requires deriving a calculable quantum correction for the same apparatus (\repo{audit/observable-optics.md}{optical derivation}).
 
-\chapterpage{tests}{What would decide the proposal?}{Research priorities}
-\subhead{1. Fix the classical boundary problem}
-Specify the data held fixed at both caps and the corner. Derive the two-form from the full action, including moving endpoints and joints. Repeat the endpoint variation on page 2 and verify that the new form is closed. Vary the proposed Hamiltonian on the same space and account for the flux. Record which area and shape variations survive this repair.
+\subsection{Gravity-mediated spin entanglement of two falling masses}
+Prepare two $10^{-14}\,\mathrm{kg}$ masses independently, each in a spatial superposition of two paths labeled by spin, with centers $450\,\mu\mathrm{m}$ apart and a $250\,\mu\mathrm{m}$ splitting per mass~\cite{bose2017,marletto2017}. After a $2.5\,\mathrm{s}$ free-fall hold, recombine each pair of paths and measure the two spins. Coherent Newtonian gravity imprints an ideal entangling phase of $-0.314\,\mathrm{rad}$, yielding an overlap probability of $0.578$ with a pre-specified Bell spin state, above the $0.5$ ceiling obeyed by every separable (unentangled) state. Any gravitational interpretation demands strict controls on electromagnetic forces, readout bias, and initial correlations. Because Chandrasekaran's four-dimensional construction treats vacuum gravity, predicting this laboratory outcome first requires coupling localized massive matter and specifying the detector (\repo{audit/observable-lab.md}{spin observable and controls}).
 
-\subhead{2. Construct a clock at increasing resolution}
-Start with one physical polarization and one angular harmonic. Solve the constraints before counting the radial modes. Keep the cap fraction, physical area, $G_N$, $\hbar$ and $\ell$ fixed. Refine radial and angular resolution separately, then together. Track the bottom of the clock spectrum and the probability $\|P_\ell\Omega\|^2$. A proof of a diverging minimum would exclude that clock prescription. Establishing a nonzero limiting overlap requires control of the quantum form and embeddings across cutoffs. A linearized model gives a mean squared shear that grows as the square of the radial cutoff. High angular modes may add little to the reading. Extending either result to interacting gravity requires control of all the constrained modes.
+\subsection{The trace fraction below half the allowed area}
+In the large Schwarzschild clock ensemble, form the ratio of physical traces weighted by $e^{-s}$ with the numerator restricted to $s \le s_*/2$ and the denominator summing over all allowed areas $[0, s_*]$ (Figure~\ref{fig:ensemble}). Under the preprint's packet measure and large-diamond clock-ensemble scaling, this fraction evaluates to $2^{-257/90} \simeq 0.13816$. Assigning the one-loop curvature exponent directly to a density per unit area instead gives $2^{-151/45} \simeq 0.09770$, a separation of $0.0405$. This provides an internal numerical target for any independent derivation of the gravitational state weights after regulator removal; an observational measurement would additionally require access to the prepared interior clock and area (\repo{audit/observable-entropy.md}{trace ratio and assumptions}).
 
-\subhead{3. Resolve finite rank in the physical space}
-Search for a physical corner charge with continuous values that commutes with $P_\ell$. Disjoint spectral intervals of that charge could supply the states seen on page 4. Conversely, one sufficient positive result is a finite-dimensional projection $F$ with $\|(1-F)P_\ell\|<1$. Then $F$ is injective on the selected space, bounding its dimension. Either calculation must include edge excitations, the cap constraints and states reached by area-changing sources. A continuous classical parameter by itself leaves its quantum spectrum open.
+\subsection{Interference of two boundary frames}
+If a reference apparatus could coherently apply a relative corner boost of rapidity $\eta$ on one branch of a superposition and the identity on the other, the resulting squared fringe visibility would measure the area characteristic function, $V(\eta) = |\langle e^{i\eta s/(2\pi)}\rangle|^2$. For two equally weighted sharp areas separated by $\Delta s = 4\pi^2$ (about $158$ Planck areas), the first visibility zero occurs at $\eta = 0.5$, whereas a uniform continuous distribution of the same width reaches its first zero at $\eta = 1$. Such a scan distinguishes specified area distributions, yet adding arbitrarily many degenerate states at each area while preserving its total probability leaves the entire visibility curve unchanged; moreover, the controlled-boost apparatus remains a theoretical proposal (\repo{audit/observable-visibility.md}{visibility curves}).
 
-\subhead{4. Test dynamics and closed sewing independently}
-Construct regulated interacting evolution for a common set of states. Verify that different intermediate cuts give the same matrix element when the regulator is removed. Compare the resulting weak-field four-graviton amplitude with the Einstein tree amplitude. For the closed experiment, compare the unnormalized boost response for distinct exhaustive cuts against an independent uncut answer. A bound on the errors must hold as more states are included.
+\note{Full observable specifications, controls, and runnable scripts: \repo{OBSERVABLES.md}{\texttt{OBSERVABLES.md}} (together with \repo{checks/observable_optics.py}{\texttt{observable\_optics.py}}, \repo{checks/observable_lab.py}{\texttt{observable\_lab.py}}, \repo{checks/observable_entropy.py}{\texttt{observable\_entropy.py}}, and \repo{checks/boost_observable.py}{\texttt{boost\_observable.py}}).}
 
-\subhead{5. Calculate the full packet measure}
-Repeat the Schwarzschild calculation for the actual clock-filtered state, checking whether the trace selects the marginal horizon saddle over a flat round sphere. Evaluate the area integration and zero modes on joined replicas, keeping the same boundary conditions as in the state count. Recovering the spin-summed result and the changes when spin is restricted would test the ensemble identification directly.
+% ============================================================================
+\clearpage
+\section[Open Criteria and Reproduction]{Open Criteria, Physical Consequences, and Reproduction}
+\label{sec:conclusions}
 
-\source{\repo{REFEREE.md}{Questions for a referee} \enspace/\enspace \repo{audit/regulator-program.md}{Regulator choices and pass criteria} \enspace/\enspace \repo{audit/finite-kinematics.md}{Physical corner-charge tests}.}
+\subsection{Mathematical hypotheses that would decide the proposal}
+Taken together, Sections~\ref{sec:geometry}--\ref{sec:entropy} narrow the four-dimensional construction to five decisive tests. First, at the classical boundary, supplying the missing moving-cap and joint contributions---or imposing tighter boundary restrictions---must restore $d\omega = 0$ on the finite-cap two-form of Section~\ref{subsec:cap-defect} (p.~\pageref{subsec:cap-defect}) across the polynomial test variations and yield a boundary Hamiltonian whose variation accounts for radiative flux. Second, in the quantum clock sector, solving the constraints before counting modes at fixed cap fraction, physical area, $G_N$, $\hbar$, and $\ell$ while refining radial and angular cutoffs separately and jointly can test for a diverging spectral floor. Establishing that the chosen preparation passes requires a separate positive limiting probability $\|P_\ell\Omega\|^2$.
 
+Third, a physical corner charge whose spectral projections commute with $P_\ell$ and whose spectral measure has a continuous component on a nonzero accepted state would transfer the infinite-rank shape mechanism of Section~\ref{subsec:shape-model} (p.~\pageref{subsec:shape-model}) to gravity, whereas constructing a finite-dimensional projection $F$ satisfying $\|(1-F)P_\ell\| < 1$ would force $F$ to be injective on the selected space and bound its dimension directly. Fourth, controlling interacting evolution and closed sewing requires removing the regulator to recover weak-field four-graviton amplitudes (Einstein tree and two-loop benchmarks) and proving that distinct exhaustive cuts of the closed boost response converge with controlled error to an independently defined uncut amplitude. Fifth, an independent microscopic derivation of Schwarzschild entropy requires evaluating the clock-filtered replica determinant with its area-mode integration, ghost modes, and zero modes under the same boundary conditions as the state count, verifying that the marginal horizon saddle dominates a flat round sphere and that spin restrictions reproduce Sen's logarithmic coefficients $167/90$ and $77/90$.
 
-\chapterpage{observables}{What could a measurement distinguish?}{Four quantities to calculate or measure}
-\subhead{An ellipse and a radar range}
-Send a circular pencil of light against a vacuum plane wave and reflect its central ray back to a clock. On the wave axis, compare its round-trip radar range $L$ with the optical distance $D=\sqrt{dA/d\Omega}$ inferred from the spot area and launch angle. On a short constant-curvature segment, the signed spot ellipticity $e$ obeys
-\[
-     1-D/L=e^2/5+O(e^4).
-\]
-For an illustrative strain $10^{-21}$ at 100 Hz over 4 km, $|e|\simeq2.34\times10^{-26}$ and the predicted fractional distance deficit is $1.10\times10^{-52}$. The distance change of $4.39\times10^{-49}\,\mathrm m$ is about $10^{31}$ times smaller than the differential arm-length response $hL$ of an optimally oriented interferometer at that strain. The central echo time stays fixed in this geometry. This is a classical Einstein prediction for a screen and a clock. A comparison of quantizations needs a calculable change for the same apparatus. \repo{audit/observable-optics.md}{Optical derivation.}
+\subsection{Physical consequences of either outcome}
+Around a regular classical saddle, the constrained bulk equations, null focusing, exact four-dimensional pair overlap, and fixed-resolution stationary-phase and one-loop backreaction already reproduce the expected structures; removing fixed-resolution averaging remains open.
 
-\subhead{The spins of two falling masses}
-Prepare each of two $10^{-14}\,\mathrm{kg}$ masses on a pair of paths labelled by spin. After a $2.5\,\mathrm{s}$ hold, recombine the paths and measure the two spins. For centres $450\,\mu\mathrm m$ apart and a $250\,\mu\mathrm m$ splitting per mass, coherent Newtonian gravity gives an ideal entangling phase of $-0.314$ radians. The predicted overlap probability with a specified entangled spin state is $0.578$. Every unentangled state gives at most $0.5$. A gravitational interpretation requires controls on electromagnetic forces, readout and initial correlations. A calculation from the four-dimensional vacuum proposal would first have to couple matter and specify the detectors. \repo{audit/observable-lab.md}{Spin observable and controls.}
+If a nonempty four-dimensional clock window proves to have finite rank and the area operator preserves that subspace, then area automatically takes only finitely many eigenvalues within the window, though their spacing and multiplicities require further calculation. Extending the construction to a finite thermal trace in anti-de Sitter space similarly requires control of a closed sum, inferring spatial topology from a two-boundary trace requires factorization assumptions, and describing black-hole evaporation requires dynamical amplitudes for radiation escaping the diamond.
 
-\subhead{The fraction below half the allowed area}
-In the proposed large Schwarzschild clock ensemble, form a ratio of physical traces with the same weight $e^{-s}$. Restrict the numerator to $s\le s_*/2$ and use all allowed areas in the denominator. With the paper's packet measure and its large-diamond clock-ensemble scaling, the predicted fraction is $2^{-257/90}\simeq0.13816$. An alternative assignment of the determinant to a density per unit area gives $2^{-151/45}\simeq0.09770$. An independent calculation must obtain the state weights and remove the regulator. An observational test would also need access to the prepared interior clock and area. \repo{audit/observable-entropy.md}{Trace ratio and assumptions.}
+An infinite-dimensional outcome would still leave room for well-defined entropy calculations. Infinite-dimensional observable algebras of Type~II, for example, admit semifinite traces that can assign finite weight to a projection of infinite Hilbert-space rank. Where the entropy of a state is finite, rescaling the trace shifts it by an additive constant. Chandrasekaran's construction uses the ordinary Type~I trace; obtaining a different algebra for the causal diamond would require a separate derivation.
 
-\subhead{Interference of two boundary frames}
-If a reference apparatus could coherently boost one branch by rapidity $\eta$, its squared fringe visibility would be $V=|\langle e^{i\eta s/(2\pi)}\rangle|^2$. For two equally weighted areas separated by $\Delta s=4\pi^2$ (about 158 Planck areas), the first zero is at $\eta=0.5$. A uniform continuum of the same width gives its first zero at $\eta=1$. These example preparations distinguish area distributions. Adding more states at each area while preserving its total probability leaves the fringes unchanged. The controlled-boost apparatus remains a proposal. \repo{audit/observable-visibility.md}{Visibility curves.}
+\subsection{Executable checks and provenance}
+All calculations underlying this handbook are documented in the \href{https://github.com/sprajs/quantum-gravity}{public review repository}. The full 15-script verification suite runs via \texttt{make check}; three core benchmarks (Table~\ref{tab:checks}) require only the Python~3 standard library.
 
-\source{\repo{OBSERVABLES.md}{Observable predictions, independent comparisons and runnable checks}.}
+\begin{table}[htbp]
+  \centering
+  \caption{Core standard-library Python~3 scripts reproducing the central numerical benchmarks of Sections~\ref{sec:pairs}--\ref{sec:sewing}.}
+  \label{tab:checks}
+  \footnotesize
+  \begin{tabular}{@{} >{\raggedright\arraybackslash}p{0.31\linewidth}
+                      >{\raggedright\arraybackslash}p{0.63\linewidth} @{}}
+    \toprule
+    Command & Expected verification output \\
+    \midrule
+    \texttt{python3 checks/pair.py}
+      & Matches the $N=100{,}000$ mode sum to the dilogarithm limit within $2.50\times 10^{-12}$ at $x=0.1$, and checks the $-iH_N$ cubic divergence and $-1/18$ remainder. \\[3pt]
+    \texttt{python3 checks/corner\_clock.py}
+      & Prints $q_* \simeq 1.6212273$, $\operatorname{erf}(q_*)\simeq 0.97814$, and accepted matrix eigenvalue counts growing from $6$ to $94$ across dimensions $16$ to $4{,}096$ at $\ell/u_0 = 1.1$. \\[3pt]
+    \texttt{python3 checks/05-2.py}
+      & Evaluates the two-area infinite-multiplicity model at $\eta=1$, returning boost contrasts $-0.45970$, $-0.18388$, and $-0.02242$ for cycle ratios $k = 1, 4, 40$. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
-\chapterpage{reading}{Where the conclusions stand}{Reading and reproduction}
-\subhead{What can already be used}
-The constrained bulk theory on its gravitational branch gives classical Einstein dynamics. Null shear focuses the rays by the expected amount. A two-dimensional Jackiw--Teitelboim gravity example admits infinitely many orthogonal states with the same bounded clock distribution. The specified four-dimensional pair overlap sums exactly. Around a regular classical saddle, the stationary-phase equations and the one-loop response of observables averaged at fixed resolution have the expected form. Removing that averaging requires further short-distance control.
+\textbf{Source and review independence.} This handbook reviews version~1 of \arxiv{2611.34924v1}{\texttt{arXiv:2611.34924v1}} (83 pages, posted 25 November 2026). Both the original preprint and this technical review acknowledge AI assistance: Astra calculations share a model family with the preprint's collaborator, Fable's independent review (\repo{reviews/README.md}{public review record}) comes from a separate model family, Neon edited the handbook and accessible guide (\repo{EXPLAINED.md}{\texttt{EXPLAINED.md}}), and this review has not undergone human specialist peer review. Readers can inspect every hypothesis and cross-check every printed formula using the \repo{EQUATIONS.md}{equation finder}, \repo{audit/dependencies.md}{dependency map}, \repo{REFEREE.md}{referee questions}, \repo{audit/finite-kinematics.md}{corner-charge tests}, and \repo{docs/handbook.tex}{editable handbook source}.
 
-\subhead{What a completed state count would change}
-If a nonempty four-dimensional clock window has finite rank, the area operator has only finitely many eigenvalues within that window, provided it preserves the selected space. Their spacing and multiplicities require further calculations. Extending the construction to a finite thermal trace in anti-de Sitter space also needs control of a closed sum. Inferring spatial topology from a two-boundary trace uses additional assumptions about factorization. A black-hole evaporation history would require dynamical amplitudes for radiation escaping the region.
+\begingroup
+\footnotesize
+\renewcommand{\section}[2]{\subsection*{References}}
+\renewcommand{\markboth}[2]{}
+\begin{thebibliography}{9}\setlength{\itemsep}{1.5pt}\setlength{\parskip}{0pt}
+\bibitem{chandrasekaran2026}
+  V.~Chandrasekaran, \textsl{An algebraic quantization of gravity from the null cone},
+  \arxiv{2611.34924v1}{\texttt{arXiv:2611.34924v1}} (25 November 2026).
+\bibitem{reisenberger2007}
+  M.~P.~Reisenberger, \textsl{The Poisson bracket on free null initial data for gravity},
+  \arxiv{0712.2541}{\texttt{arXiv:0712.2541}} (2007);
+  \textsl{The symplectic 2-form for gravity in terms of free null initial data},
+  \arxiv{1211.3880}{\texttt{arXiv:1211.3880}} (2012).
+\bibitem{sen2012}
+  A.~Sen, \textsl{Logarithmic corrections to Schwarzschild and other non-extremal black hole entropy in different dimensions},
+  \arxiv{1205.0971}{\texttt{arXiv:1205.0971}} (2012), Eqs.~(1.1)--(1.5) and \S3.2.
+\bibitem{bastianelli2022}
+  F.~Bastianelli, R.~Bonezzi, and M.~Melis, \textsl{Gauge-invariant coefficients in perturbative quantum gravity},
+  \arxiv{2206.13287}{\texttt{arXiv:2206.13287}} (2022), Eq.~(44).
+\bibitem{elmenoufi2015}
+  B.~K.~El-Menoufi, \textsl{Quantum gravity of Kerr--Schild spacetimes and the logarithmic correction to Schwarzschild black hole entropy},
+  \arxiv{1511.08816}{\texttt{arXiv:1511.08816}} (2015), Eqs.~(1.7)--(1.9).
+\bibitem{harte2015}
+  A.~I.~Harte, \textsl{Optics in a nonlinear gravitational plane wave},
+  \arxiv{1502.03658}{\texttt{arXiv:1502.03658}} (2015).
+\bibitem{bose2017}
+  S.~Bose et al., \textsl{A spin entanglement witness for quantum gravity},
+  \arxiv{1707.06050v1}{\texttt{arXiv:1707.06050v1}} (2017).
+\bibitem{marletto2017}
+  C.~Marletto and V.~Vedral, \textsl{Gravitationally induced entanglement between two massive particles is sufficient evidence of quantum effects in gravity},
+  \arxiv{1707.06036v2}{\texttt{arXiv:1707.06036v2}} (2017).
+\end{thebibliography}
+\endgroup
 
-An infinite-dimensional outcome would still leave room for useful entropy calculations. For example, some infinite-dimensional observable algebras admit a trace finite on the states of interest while the ordinary state count diverges. Its normalization fixes entropy up to a shared additive constant. The paper uses the ordinary trace. Deriving a different algebra for the diamond would require a separate calculation.
-
-\subhead{Reproduce three checks}
-From the \href{https://github.com/sprajs/quantum-gravity}{public review repository}, run the following with Python 3. They use its standard library.
-\begin{center}\small
-\begin{tabular}{@{}p{0.45\linewidth}p{0.5\linewidth}@{}}\toprule
-Command & What to look for\\\midrule
-\texttt{python3 checks/pair.py} & Compare the complex mode sum with its analytic tail bound.\\[4pt]
-\texttt{python3 checks/corner\_clock.py} & At $\ell/u_0=1.1$ the accepted count grows from 6 to 94 across the printed matrix sizes.\\[4pt]
-\texttt{python3 checks/05-2.py} & Compare exhaustive cut orders in the two-area model.\\\bottomrule
-\end{tabular}\end{center}
-
-\panel{Source and scope}{This nine-page handbook assesses the 83-page version posted on 25 November 2026. Both the manuscript and this technical review acknowledge AI assistance: Astra checks share a model family with the paper's collaborator, Fable's review comes from a separate family, and neither has had human specialist peer review. Readers can inspect every hypothesis, run the code and compare the exact calculations with the versioned preprint.}
-
-\source{\href{https://arxiv.org/abs/2611.34924v1}{Versioned preprint} \enspace/\enspace \repo{EQUATIONS.md}{Printed equation finder} \enspace/\enspace \repo{audit/dependencies.md}{Dependencies among the claims} \enspace/\enspace \repo{docs/handbook.tex}{Editable handbook source}.}
 \end{document}

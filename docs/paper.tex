@@ -241,7 +241,7 @@ If the cutoff clocks define an increasing family of closed positive forms on a c
 Two explicit model checks sharpen this ultraviolet obstruction (\repo{audit/shear-uv.md}{short-distance shear analysis}).
 First, given the linearized null-plane shear commutator derived in Appendix~D.2 of Ref.~\cite{Chandrasekaran2026}, no nonzero vector admits a finite bare point-field squared-shear integral over any open radial interval.
 Second, with selected bare Gaussian radial modes matching the paper's short-wave symplectic scaling, the vacuum mean squared radial derivative grows as $O(N^2)$ with radial cutoff $N$.
-While a diverging vacuum mean alone leaves the probability of a low reading undetermined, in two regulated quadratic shear models even the state-independent \emph{lowest clock eigenvalue} diverges with radial resolution, emptying any fixed window $P_\ell$ identically; whether the full nonlinear two-polarization gravitational clock behaves similarly remains open.
+While a diverging vacuum mean alone leaves the probability of a low reading undetermined, in two regulated quadratic shear models even the state-independent \emph{lowest clock eigenvalue} diverges as the radial cutoff and the focusing cap are both removed, emptying any fixed window $P_\ell$ identically; whether the full nonlinear two-polarization gravitational clock behaves similarly remains open.
 Vacuum subtraction alters the positivity argument behind~\eqref{eq:clock-bound} because local Wick-subtracted squares can have negative expectations in squeezed states.
 A constructive proof of state existence must therefore exhibit a normalized physical state $\chi$ with finite limiting clock form energy $Q[\chi]<\infty$, control its overlap $|\langle\Omega,\chi\rangle|>0$ with the prepared state, and bound $\|P_\ell\Omega\|^2$ from below at the specified $\ell$.
 
@@ -289,7 +289,7 @@ Under these hypotheses, finiteness of the ordinary closed trace $\tr(W)$ is alre
 \subsection{Order dependence in the boost-contrast test}
 
 Section~5.2 of Ref.~\cite{Chandrasekaran2026} attempts to force finite rank by contradiction using a relative boost applied to one side of a reflected cut.
-In the uncut smooth preparation, boosting one normal frame shifts a bounded two-sided shear correlation by a nonzero amount.
+The smooth linearized vacuum has a nonzero response to a relative boost. The contradiction requires that response to survive in the full uncut preparation.
 Under the hypothesis $\dim(P_\ell\HH)=\infty$, a finite partition of $[0,s_*]$ has a narrow area cell whose spectral projection has infinite rank, allowing basis states to be grouped into long cycles dominated by nearly equal areas; on each cycle projection $P$, the boost supplies almost a common phase to the dominant states, suppressing the boost contrast and reversing the sign of an unnormalized subtracted observable $X$ relative to the uncut answer (Ref.~\cite{Chandrasekaran2026}, Eq.~(5.38)).
 
 Both the finite-projection cycle bounds and the freely falling vacuum boost signal hold under their stated premises (\repo{audit/dimension-crosscheck.md}{boost-argument cross-check}).
@@ -297,7 +297,7 @@ The unproved step is a closed-sewing theorem showing that \emph{every} exhaustiv
 For sufficiently small cycle tolerance in Eq.~(D.25) of Ref.~\cite{Chandrasekaran2026}, the estimated normalized signed insertion satisfies $Z_P[X]/Z_P\leq-\kappa$ for a fixed $\kappa>0$, where $Z_P=\tr(PWP)$. Then $|Z_P[X]|\geq\kappa c\,\rank P$ by~\eqref{eq:trace-rank}. Bounded signed sums along this exhaustive family already imply finite rank, independently of the sign of the uncut amplitude (\repo{reviews/fable-clock-sewing.md}{cycle estimate}).
 
 An explicit comparison space isolates this operator-limit dependence (\repo{checks/05-2.py}{\texttt{checks/05-2.py}}).
-Take $\HH = \mathbb{C}^2\otimes \ell^2(\mathbb{N})$ with two area eigenvalues $s_0,s_1$, each of infinite multiplicity, positive weights $w_i=e^{-s_i}f_b(s_i)$, and a bounded two-sided exchange observable.
+Take $\HH = \mathbb{C}^2\otimes \ell^2(\mathbb{N})$ with two area eigenvalues $s_0,s_1$, each of infinite multiplicity, positive weights $w_i=e^{-s_i}f_b(s_i)$, and a bounded two-sided exchange observable. The example uses an independent unit-variance Gaussian centered at $2+\pi$, for which the reflected weights coincide at $s_0=1$ and $s_1=1+2\pi$.
 This model obeys exact open sewing~\eqref{eq:cauchy-schwarz} for all fixed finite-norm vectors.
 Yet three distinct ways of exhausting the same orthonormal basis---varying the ratio of states drawn from the two area sectors ($k=1,4,40$)---give normalized boost contrasts of approximately $-0.460$, $-0.184$, and $-0.022$ ($-0.45970$, $-0.18388$, and $-0.02242$).
 Because strong convergence $P\to 1$ does not select a unique limit for an infinite-trace closed contraction, gravitational dynamics would have to supply an additional closed-sewing identity fixing the physical result.
