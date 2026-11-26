@@ -1,0 +1,10 @@
+# Local copies of the versioned arXiv submission
+/source/*
+!/source/README.md
+
+__pycache__/
+*.pyc
+
+# Working referee manuscripts and local rendering intermediates
+/tmp/
+/audit/fable*.md
